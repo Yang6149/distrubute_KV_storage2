@@ -1,0 +1,7 @@
+{
+    "gopls": {
+        "go.languageServerExperimentalFeatures":{
+            "documentLink": false
+        }
+    }
+}

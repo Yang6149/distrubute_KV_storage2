@@ -1,16 +1,16 @@
 package labrpc
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/rpc"
+	"runtime"
+	"strconv"
+	"sync"
 	"testing"
+	"time"
 )
-import "strconv"
-import "sync"
-import "runtime"
-import "time"
-import "fmt"
 
 type JunkArgs struct {
 	X int
@@ -602,29 +602,38 @@ func TestBenchmark(t *testing.T) {
 }
 
 func TestMyRpc(t *testing.T) {
-	rpc.RegisterName("HelloService", new(HelloService))
+	RegisterHelloService(new(HelloService), HelloServiceName1)
+	RegisterHelloService(new(HelloService), HelloServiceName2)
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
 		log.Fatal("ListenTCP error:", err)
 	}
 
-	conn, err := listener.Accept()
-	if err != nil {
-		log.Fatal("Accept error:", err)
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Fatal("Accept error:", err)
+		}
+
+		go rpc.ServeConn(conn)
 	}
-
-	rpc.ServeConn(conn)
-
 }
-func TestMyCall(t *testing.T){
+func TestMyCall(t *testing.T) {
 	client, err := rpc.Dial("tcp", "localhost:1234")
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}
 
 	var reply string
-	err = client.Call("HelloService.Hello", "hello", &reply)
+	err = client.Call(HelloServiceName1+"Hello", "hello", &reply)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(reply)
+
+	err = client.Call(HelloServiceName2+"Hello", "hello", &reply)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -2,7 +2,12 @@ package raft
 
 import (
 	"bytes"
+	"fmt"
+	"log"
 	"math/rand"
+	"net"
+	"net/rpc"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -47,6 +52,7 @@ type Raft struct {
 	mu         sync.Mutex // Lock to protect shared access to this peer's state
 	LeaderCond sync.Cond
 	peers      []*labrpc.ClientEnd // RPC end points of all peers
+	client     []*labrpc.Client    // true RPC client
 	persister  *Persister          // Object to hold this peer's persisted state
 	me         int                 // this peer's index into peers[]
 	dead       int32               // set by Kill()
@@ -196,7 +202,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.persist()
 		DPrintf("%d add a command:%d at index %d", rf.me, command, rf.logLen()-1)
 		if isDan {
-			for i := range rf.peers {
+			for i := range rf.client {
 				if i == rf.me || len(rf.heartBeatchs[i].c) > 0 {
 					continue
 				}
@@ -305,15 +311,31 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf := &Raft{}
 	//rpc.RegisterName("HelloService", new(Raft))
 	rf.peers = peers
+	go func() {
+		rpc.RegisterName("Server"+strconv.Itoa(me)+"Raft", rf)
+		listener, err := net.Listen("tcp", ":3000"+strconv.Itoa(me))
+		fmt.Printf("serverName := %s \t listener := "+":3000"+strconv.Itoa(me)+"\n", "Server"+strconv.Itoa(me)+"Raft")
+		if err != nil {
+			log.Fatal("ListenTCP error:", err)
+		}
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				log.Fatal("Accept error:", err)
+			}
+
+			go rpc.ServeConn(conn)
+		}
+	}()
 	rf.persister = persister
 	rf.me = me
-	rf.menkan = len(rf.peers)/2 + 1
+	rf.menkan = len(rf.client)/2 + 1
 	rf.applyCh = applyCh
 	rf.currentTerm = 1
 	rf.log = make([]Entry, 1)
 	rf.log[0] = Entry{Term: rf.currentTerm}
 	rf.sendApply = make(chan int, 1000)
-	rf.heartBeatchs = make([]HBchs, len(rf.peers))
+	rf.heartBeatchs = make([]HBchs, len(rf.client))
 	//3B
 	rf.lastIncludedIndex = -1
 	rf.lastIncludedTerm = 0
@@ -336,6 +358,112 @@ func Make(peers []*labrpc.ClientEnd, me int,
 			rf.mu.Lock()
 			st := rf.state
 			rf.mu.Unlock()
+			switch st {
+			case follower:
+				//
+				select {
+				case <-rf.findBiggerChan:
+				case <-rf.appendChan:
+					//follower收到有效append，重置超时
+				case <-time.After(electionConstTime()):
+					//超时啦，进行选举
+					rf.mu.Lock()
+					rf.chanReset()
+					rf.convert(candidate)
+					rf.election()
+					rf.mu.Unlock()
+				}
+			case candidate:
+				select {
+				case <-rf.findBiggerChan:
+
+					//发现了更大地 term ，转为follower
+				case <-rf.appendChan:
+					//candidate 收到有效心跳，转回follower
+				case <-rf.voteGrantedChan:
+					//candidate 收到多数投票结果，升级为 leader
+				case <-time.After(electionConstTime()):
+					//没有投票结果，也没有收到有效append，重新giao
+					rf.mu.Lock()
+					rf.chanReset()
+					rf.election()
+					rf.mu.Unlock()
+				}
+				//
+			case leader:
+				select {
+				case <-rf.findBiggerChan:
+
+				case <-rf.appendChan:
+					//收到有效地心跳，转为follower
+				case <-time.After(heartbeatConstTime):
+					// 	//进行一次append
+					// rf.mu.Lock()
+					// rf.chanReset()
+					// rf.heartBeat()
+					// rf.mu.Unlock()
+				}
+
+			}
+		}
+	}(rf)
+	go rf.apply()
+	return rf
+}
+func Make2(client []*labrpc.Client, me int,
+	persister *Persister, applyCh chan ApplyMsg) *Raft {
+	rf := &Raft{}
+	//rpc.RegisterName("HelloService", new(Raft))
+	go func() {
+		rpc.RegisterName(client[me].ClusterName, rf)
+		listener, err := net.Listen("tcp", "localhost:"+client[me].Port)
+		fmt.Printf("serverName := %s \t listener := %s\n", client[me].ClusterName, client[me].Port)
+		if err != nil {
+			log.Fatal("ListenTCP error:", err)
+		}
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				log.Fatal("Accept error:", err)
+			}
+
+			go rpc.ServeConn(conn)
+		}
+	}()
+	rf.persister = persister
+	rf.me = me
+	rf.client = client
+	rf.menkan = len(rf.client)/2 + 1
+	rf.applyCh = applyCh
+	rf.currentTerm = 1
+	rf.log = make([]Entry, 1)
+	rf.log[0] = Entry{Term: rf.currentTerm}
+	rf.sendApply = make(chan int, 1000)
+	rf.heartBeatchs = make([]HBchs, len(rf.client))
+	//3B
+	rf.lastIncludedIndex = -1
+	rf.lastIncludedTerm = 0
+	for i := range rf.heartBeatchs {
+		rf.heartBeatchs[i].c = make(chan int, 1000)
+	}
+	rf.chanReset()
+	// Your initialization code here (2A, 2B, 2C).-------------------------------
+
+	// initialize from state persisted before a crash
+	rf.readPersist(persister.ReadRaftState())
+	go func(rf *Raft) {
+		for {
+			if rf.killed() {
+				rf.mu.Lock()
+				defer rf.mu.Unlock()
+				rf.convert(follower)
+				return
+			}
+			rf.mu.Lock()
+			st := rf.state
+			rf.mu.Unlock()
+			fmt.Printf("iiii %d , state  = %d\n", rf.me, rf.state)
+
 			switch st {
 			case follower:
 				//

@@ -10,8 +10,9 @@ heartBeat 的 timeout
 leader 用来并发的向 follower 们发送 AppendEntries
 */
 func (rf *Raft) heartBeat() {
+	fmt.Println("headbeeat3")
 	//DPrintf("%d ： 我现在的 dead为 %d",rf.me,rf.dead)
-	for i := range rf.peers {
+	for i := range rf.client {
 		if i == rf.me {
 			continue
 		}
@@ -21,6 +22,7 @@ func (rf *Raft) heartBeat() {
 }
 
 func (rf *Raft) sendAppendEntry(i int) {
+	fmt.Println("headbeeat1")
 	rf.mu.Lock()
 	if rf.state != leader {
 		rf.mu.Unlock()
@@ -37,7 +39,7 @@ func (rf *Raft) sendAppendEntry(i int) {
 	//初始化 append args
 	// DPrintf("%d:%d的nextIndex %d", rf.me, i, rf.nextIndex[i])
 	// DPrintf("%d 的len log %d ", rf.me, len(rf.log))
-	args := &AppendEntriesArgs{
+	args := AppendEntriesArgs{
 		Term:         rf.currentTerm,
 		LeaderId:     rf.me,
 		PreLogIndex:  rf.nextIndex[i] - 1,
@@ -167,7 +169,7 @@ func (rf *Raft) heartBeatForN(i int) {
 	}
 }
 func (rf *Raft) heartBeatInit() {
-	for i := range rf.peers {
+	for i := range rf.client {
 		if i == rf.me {
 			continue
 		}
@@ -181,7 +183,7 @@ func (rf *Raft) sendInstallSnapshot(i int) {
 		rf.mu.Unlock()
 		return
 	}
-	args := &InstallSnapshotsArgs{}
+	args := InstallSnapshotsArgs{}
 	reply := &InstallSnapshotsReply{}
 	args.Term = rf.currentTerm
 	args.LeaderId = rf.me

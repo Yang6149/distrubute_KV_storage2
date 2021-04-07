@@ -626,14 +626,14 @@ func TestMyCall(t *testing.T) {
 	}
 
 	var reply string
-	err = client.Call(HelloServiceName1+"Hello", "hello", &reply)
+	err = client.Call(HelloServiceName1+".Hello", "hello", &reply)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println(reply)
 
-	err = client.Call(HelloServiceName2+"Hello", "hello", &reply)
+	err = client.Call(HelloServiceName2+".Hello", "hello", &reply)
 	if err != nil {
 		log.Fatal(err)
 	}

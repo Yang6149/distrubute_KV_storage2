@@ -1,5 +1,10 @@
 package raft
 
+import (
+	"fmt"
+	"time"
+)
+
 type AppendEntriesArgs struct {
 	Term         int
 	LeaderId     int
@@ -30,7 +35,8 @@ type InstallSnapshotsReply struct {
 	MatchIndex int
 }
 
-func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
+func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply) error {
+	fmt.Println("headbeeat")
 	if rf.me == 2 {
 		DPrintf("unlockappend1")
 	}
@@ -49,7 +55,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 			reply.Term = rf.currentTerm
 			reply.Success = false
 			reply.MatchIndex = rf.logLen() - 1
-			return
+			return nil
 		}
 		if rf.logTerm(args.PreLogIndex) != args.PreLogTerm {
 
@@ -115,6 +121,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		reply.Term = rf.currentTerm
 		reply.Success = false
 	}
+	return nil
 }
 
 func (rf *Raft) InstallSnapshots(args *InstallSnapshotsArgs, reply *InstallSnapshotsReply) {
@@ -156,13 +163,15 @@ func (rf *Raft) InstallSnapshots(args *InstallSnapshotsArgs, reply *InstallSnaps
 	rf.persist()
 }
 
-func (rf *Raft) sendInstallSnapshots(server int, args *InstallSnapshotsArgs, reply *InstallSnapshotsReply) bool {
-	ok := rf.peers[server].Call("Raft.InstallSnapshots", args, reply)
+func (rf *Raft) sendInstallSnapshots(server int, args InstallSnapshotsArgs, reply *InstallSnapshotsReply) bool {
+	ok := rf.client[server].Call("InstallSnapshots", args, reply)
 	return ok
 }
 
-func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) bool {
-	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
+func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
+	start := time.Now()
+	ok := rf.client[server].Call("AppendEntries", args, reply)
+	fmt.Printf("count := %v\n", time.Since(start))
 	return ok
 }
 

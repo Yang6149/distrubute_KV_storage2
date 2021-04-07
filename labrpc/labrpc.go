@@ -52,8 +52,10 @@ package labrpc
 import (
 	"bytes"
 	"distrubute_KV_storage/labgob"
+	"fmt"
 	"log"
 	"math/rand"
+	"net/rpc"
 	"reflect"
 	"strings"
 	"sync"
@@ -78,48 +80,27 @@ type ClientEnd struct {
 	endname interface{}   // this end-point's name
 	ch      chan reqMsg   // copy of Network.endCh
 	done    chan struct{} // closed when Network is cleaned up
+	client  *rpc.Client
 }
 
 // send an RPC, wait for the reply.
 // the return value indicates success; false means that
 // no reply was received from the server.
 func (e *ClientEnd) Call(svcMeth string, args interface{}, reply interface{}) bool {
-	req := reqMsg{}
-	req.endname = e.endname
-	req.svcMeth = svcMeth
-	req.argsType = reflect.TypeOf(args)
-	req.replyCh = make(chan replyMsg)
-
-	qb := new(bytes.Buffer)
-	qe := labgob.NewEncoder(qb)
-	qe.Encode(args)
-	req.args = qb.Bytes()
-
-	//
-	// send the request.
-	//
-	select {
-	case e.ch <- req:
-		// the request has been sent.
-	case <-e.done:
-		// entire Network has been destroyed.
-		return false
-	}
-
-	//
-	// wait for the reply.
-	//
-	rep := <-req.replyCh
-	if rep.ok {
-		rb := bytes.NewBuffer(rep.reply)
-		rd := labgob.NewDecoder(rb)
-		if err := rd.Decode(reply); err != nil {
-			log.Fatalf("ClientEnd.Call(): decode reply: %v\n", err)
+	time.Sleep(time.Millisecond * 2000)
+	if e.client == nil {
+		client, err := rpc.Dial("tcp", "localhost:3000"+e.endname.(string)[6:])
+		if err != nil {
+			log.Fatal("dialing:", err)
 		}
-		return true
-	} else {
-		return false
+		e.client = client
 	}
+	err := e.client.Call(e.endname.(string)+svcMeth, args, reply)
+	fmt.Printf("Call\t" + e.endname.(string) + svcMeth + "\n")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return true
 }
 
 type Network struct {
@@ -313,10 +294,6 @@ func (rn *Network) processReq(req reqMsg) {
 func (rn *Network) MakeEnd(endname interface{}) *ClientEnd {
 	rn.mu.Lock()
 	defer rn.mu.Unlock()
-
-	if _, ok := rn.ends[endname]; ok {
-		log.Fatalf("MakeEnd: %v already exists\n", endname)
-	}
 
 	e := &ClientEnd{}
 	e.endname = endname

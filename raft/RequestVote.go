@@ -25,7 +25,8 @@ type RequestVoteReply struct {
 //
 // example RequestVote RPC handler.handler、handler、handler
 //
-func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
+func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error {
+
 	// Your code here (2A, 2B).----------------------------------------
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
@@ -55,7 +56,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 				DPrintf("%d votefor %d,当前 term %d", rf.me, args.CandidateId, rf.currentTerm)
 				reply.Term = args.Term
 				reply.VoteGranted = true
-				return
+				return nil
 			}
 			// rf.voteFor = args.CandidateId
 			// rf.findBiggerChan <- 1
@@ -66,8 +67,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		}
 		DPrintf("%d candicate %d的up-to-data害没自己的 last大", rf.me, args.CandidateId)
 		DPrintf("%d 拒绝，现在我的 term is %d", rf.me, rf.currentTerm)
-		DPrintf("%d args.LastLogTerm =%d rf.logTerm(myLastIndex)=%d", rf.me,args.LastLogTerm , rf.logTerm(myLastIndex))
-		DPrintf("%d args.LastLogIndex =%d myLastIndex=%d", rf.me,args.LastLogIndex , myLastIndex)
+		DPrintf("%d args.LastLogTerm =%d rf.logTerm(myLastIndex)=%d", rf.me, args.LastLogTerm, rf.logTerm(myLastIndex))
+		DPrintf("%d args.LastLogIndex =%d myLastIndex=%d", rf.me, args.LastLogIndex, myLastIndex)
 		reply.Term = args.Term
 		reply.VoteGranted = false
 
@@ -75,6 +76,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.Term = args.Term
 		reply.VoteGranted = false
 	}
+	return nil
 }
 
 //
@@ -107,6 +109,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 // the struct itself.
 //
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
+	ok := rf.client[server].Call("RequestVote", *args, reply)
 	return ok
 }

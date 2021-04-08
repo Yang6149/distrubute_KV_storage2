@@ -10,7 +10,6 @@ heartBeat 的 timeout
 leader 用来并发的向 follower 们发送 AppendEntries
 */
 func (rf *Raft) heartBeat() {
-	fmt.Println("headbeeat3")
 	//DPrintf("%d ： 我现在的 dead为 %d",rf.me,rf.dead)
 	for i := range rf.client {
 		if i == rf.me {
@@ -22,7 +21,6 @@ func (rf *Raft) heartBeat() {
 }
 
 func (rf *Raft) sendAppendEntry(i int) {
-	fmt.Println("headbeeat1")
 	rf.mu.Lock()
 	if rf.state != leader {
 		rf.mu.Unlock()
@@ -48,7 +46,6 @@ func (rf *Raft) sendAppendEntry(i int) {
 		Entries:      make([]Entry, 0),
 	}
 	args.Entries = deepCopyLogs(rf.logGets(rf.nextIndex[i], min(rf.logLen(), rf.nextIndex[i]+50)))
-	DPrintf("%d ：发送给%d agrs %d ", rf.me, i, args)
 	reply := &AppendEntriesReply{}
 	yourLastMatchIndex := rf.matchIndex[i]
 	yourLastIncludedIndex := rf.lastIncludedIndex
@@ -64,6 +61,7 @@ func (rf *Raft) sendAppendEntry(i int) {
 				rf.convert(follower)
 			} else {
 				if reply.Success {
+
 					myLastMatch := rf.matchIndex[i]
 
 					rf.matchIndex[i] = reply.MatchIndex
@@ -71,6 +69,7 @@ func (rf *Raft) sendAppendEntry(i int) {
 					//1. check MatchIndex
 					if reply.MatchIndex > rf.lastIncludedIndex && rf.logTerm(reply.MatchIndex) == rf.currentTerm && rf.commitIndex < reply.MatchIndex && reply.MatchIndex > myLastMatch {
 						//检测match数量，大于一大半就commit
+
 						matchNum := 1
 						for m := range rf.matchIndex {
 							if m == rf.me {
@@ -82,7 +81,6 @@ func (rf *Raft) sendAppendEntry(i int) {
 							if matchNum >= rf.menkan {
 								rf.commitIndex = rf.matchIndex[i]
 								if rf.lastIncludedIndex > rf.commitIndex {
-									DPrintf("%d lastIncluded 比 commit 大 hb", rf.me)
 								}
 								rf.sendApply <- rf.commitIndex
 								break
@@ -108,7 +106,6 @@ func (rf *Raft) sendAppendEntry(i int) {
 					//这里要做到秒发
 					//fmt.Println(rf.nextIndex, "leader is :", rf.me, ",send to ", i)
 					//fmt.Println(rf.me, "-- args:", args, "reply:", reply)
-					DPrintf("%d 减nextIndex[%d]=%d", rf.me, i, rf.nextIndex[i])
 					if reply.MatchIndex != 0 {
 						rf.nextIndex[i] = reply.MatchIndex + 1
 						if rf.nextIndex[i]-1-rf.lastIncludedIndex >= len(rf.log) {
@@ -133,7 +130,6 @@ func (rf *Raft) sendAppendEntry(i int) {
 					if len(rf.heartBeatchs[i].c) == 0 {
 						rf.heartBeatchs[i].c <- 1
 					}
-					DPrintf("%d 减完nextIndex[%d]=%d", rf.me, i, rf.nextIndex[i])
 				}
 			}
 		} else {
@@ -191,33 +187,25 @@ func (rf *Raft) sendInstallSnapshot(i int) {
 	args.LastIncludedTerm = rf.lastIncludedTerm
 	args.Data = rf.persister.ReadSnapshot()
 	rf.mu.Unlock()
-	ok := rf.sendInstallSnapshots(i, args, reply)
+	rf.sendInstallSnapshots(i, args, reply)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	if rf.state != leader {
 		return
 	}
 	if reply.Term > rf.currentTerm {
-		DPrintf("%d :leader 在 snapshot 中发现更大的 Term", rf.me)
 		rf.currentTerm = reply.Term
 		rf.persist()
 		rf.findBiggerChan <- 1
 		rf.convert(follower)
 		return
 	}
-	if ok && reply.Success && args.Term == rf.currentTerm {
-		DPrintf("%d : next[%d] %d->%d", rf.me, i, rf.nextIndex[i], reply.Term+1)
-	} else {
-		DPrintf("ok : %t ,success : %t, agrs.Term: %d ,rf.curr := %d", ok, reply.Success, args.Term, rf.currentTerm)
-	}
+
 	if rf.nextIndex[i]-1-rf.lastIncludedIndex-1 >= len(rf.log) {
 		fmt.Println(rf.log[rf.nextIndex[i]-1-rf.lastIncludedIndex-1])
 	}
-	temp := rf.nextIndex[i]
 	rf.nextIndex[i] = max(reply.MatchIndex+1, rf.nextIndex[i])
-	DPrintf("%d rf.nextIndex[%d] = %d", rf.me, i, rf.nextIndex)
 	if rf.nextIndex[i]-1-rf.lastIncludedIndex-1 >= len(rf.log) {
-		DPrintf("%d ------- temp=%d,reply.Match=%d,pre=%d,loglen=%d", rf.me, temp, reply.MatchIndex, rf.nextIndex[i]-1, rf.logLen())
 		fmt.Println(rf.log[rf.nextIndex[i]-1-rf.lastIncludedIndex-1])
 	}
 

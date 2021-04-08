@@ -462,7 +462,6 @@ func Make2(client []*labrpc.Client, me int,
 			rf.mu.Lock()
 			st := rf.state
 			rf.mu.Unlock()
-			fmt.Printf("iiii %d , state  = %d\n", rf.me, rf.state)
 
 			switch st {
 			case follower:
@@ -518,13 +517,15 @@ func Make2(client []*labrpc.Client, me int,
 }
 
 func electionConstTime() time.Duration {
-	return time.Duration(150+rand.Intn(150)) * time.Millisecond
+	return time.Duration(150+rand.Intn(300)) * time.Millisecond
 }
 
 func (rf *Raft) apply() {
 	for {
 		select {
 		case index := <-rf.sendApply:
+			fmt.Printf("%d %d ************************************\n", rf.me, index)
+
 			for i := rf.lastApplied + 1; i <= index; i++ {
 				rf.mu.Lock()
 				if i <= rf.lastIncludedIndex {

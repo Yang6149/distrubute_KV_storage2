@@ -36,12 +36,10 @@ type InstallSnapshotsReply struct {
 }
 
 func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply) error {
-	fmt.Println("headbeeat")
-	if rf.me == 2 {
-		DPrintf("unlockappend1")
-	}
+	fmt.Printf("append %d,response\n", rf.me)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+
 	if args.Term >= rf.currentTerm && args.PreLogIndex >= rf.lastIncludedIndex {
 		rf.state = follower
 		if args.Term > rf.currentTerm {
@@ -60,7 +58,6 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 		if rf.logTerm(args.PreLogIndex) != args.PreLogTerm {
 
 			//index and  term can't match,return false
-			DPrintf("%d : last不相同，后退  index%d’Term 自己%d : %d ", rf.me, args.PreLogIndex, rf.logTerm(args.PreLogIndex), args.PreLogTerm)
 			reply.Term = rf.currentTerm
 			reply.Success = false
 			index := args.PreLogIndex - 1
@@ -78,8 +75,6 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 			if len(args.Entries) > 0 {
 				if index := args.PreLogIndex + len(args.Entries); rf.logLen() > index && args.PreLogIndex+len(args.Entries) > rf.commitIndex && rf.logTerm(index) == args.Entries[len(args.Entries)-1].Term {
 					if len(rf.log) > index+1 {
-						DPrintf("%d 想要覆盖掉正确log", rf.me)
-						DPrintf("%d 之前 entry= %d log= %d ", rf.me, args.Entries, rf.log)
 					}
 				} else {
 					if args.PreLogIndex+len(args.Entries) > rf.commitIndex {
@@ -125,32 +120,26 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 }
 
 func (rf *Raft) InstallSnapshots(args *InstallSnapshotsArgs, reply *InstallSnapshotsReply) {
-	DPrintf("%d unlock接受 snap", rf.me)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	//follower 接收到 snapshot 进行处理
 	if max(rf.lastIncludedIndex, rf.commitIndex) >= args.LastIncludedIndex || rf.currentTerm > args.Term {
-		DPrintf("%d mu接受 snap,rf.ll:%d,rf.commit:%d,args.ll:%d", rf.me, rf.lastIncludedIndex, rf.commitIndex, args.LastIncludedIndex)
 		reply.Success = false
 		reply.Term = rf.currentTerm
 		reply.MatchIndex = max(rf.lastIncludedIndex, rf.commitIndex)
 		//DPrintf("%d reply1 rf.lastIncludedIndex = %d,rf.commitIndex %d", rf.me, rf.lastIncludedIndex, rf.commitIndex)
 		return
 	}
-	DPrintf("%d 接受 snap", rf.me)
 	rf.appendChan <- 1
-	DPrintf("%d 111", rf.me)
 	rf.SnapshotF = make(chan int, 1)
 	msg := ApplyMsg{false, args.Data, args.LastIncludedIndex}
 	rf.mu.Unlock()
 	rf.applyCh <- msg
-	DPrintf("%d 222", rf.me)
 	a := <-rf.SnapshotF
 	rf.mu.Lock()
 	if a == -1 {
 		return
 	}
-	DPrintf("%d 333", rf.me)
 	rf.lastIncludedIndex = max(args.LastIncludedIndex, rf.lastIncludedIndex)
 	rf.lastIncludedTerm = args.LastIncludedTerm
 	// if rf.lastIncludedTerm>500{
@@ -171,7 +160,7 @@ func (rf *Raft) sendInstallSnapshots(server int, args InstallSnapshotsArgs, repl
 func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
 	start := time.Now()
 	ok := rf.client[server].Call("AppendEntries", args, reply)
-	fmt.Printf("count := %v\n", time.Since(start))
+	fmt.Printf("me %d ,to %d ,count := %v reply : %v ,arg %v\n", rf.me, server, time.Since(start), reply, args)
 	return ok
 }
 

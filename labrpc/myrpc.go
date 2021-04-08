@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/rpc"
 	"strconv"
+	"time"
 )
 
 type HelloService struct{}
@@ -43,23 +44,31 @@ type Client struct {
 
 func MakeMyClient(name string, i int) *Client {
 	client := &Client{}
-	client.ClusterName = name
+	client.ClusterName = name + strconv.Itoa(i)
 	client.Port = "3000" + strconv.Itoa(i)
+	client.Num = i
+	return client
+}
+func MakeMySerClient(name string, i int) *Client {
+	client := &Client{}
+	client.ClusterName = name + strconv.Itoa(i)
+	client.Port = "2000" + strconv.Itoa(i)
 	client.Num = i
 	return client
 }
 
 func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool {
-	if c.client == nil {
+	for c.client == nil {
 		client, err := rpc.Dial("tcp", "localhost:"+c.Port)
 		if err != nil {
-			log.Fatal("dialing:", err)
+			log.Println("dialing:", err)
+			time.Sleep(time.Millisecond * 100)
 		}
 		c.client = client
 	}
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {
-		fmt.Print("错误" + err.Error())
+		fmt.Print("错误" + err.Error() + "\n")
 	}
 	return true
 }

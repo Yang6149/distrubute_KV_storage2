@@ -1,20 +1,22 @@
 package kvraft
 
-import "distrubute_KV_storage/labrpc"
-import "testing"
-import "os"
+import (
+	"distrubute_KV_storage/labrpc"
+	"os"
+	"testing"
 
-// import "log"
-import crand "crypto/rand"
-import "math/big"
-import "math/rand"
-import "encoding/base64"
-import "sync"
-import "runtime"
-import "distrubute_KV_storage/raft"
-import "fmt"
-import "time"
-import "sync/atomic"
+	// import "log"
+	crand "crypto/rand"
+	"distrubute_KV_storage/raft"
+	"encoding/base64"
+	"fmt"
+	"math/big"
+	"math/rand"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"time"
+)
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -200,11 +202,11 @@ func (cfg *config) makeClient(to []int) *Clerk {
 		ends[j] = cfg.net.MakeEnd(endnames[j])
 		cfg.net.Connect(endnames[j], j)
 	}
-
-	ck := MakeClerk(random_handles(ends))
-	cfg.clerks[ck] = endnames
-	cfg.nextClientId++
-	cfg.ConnectClientUnlocked(ck, to)
+	ck := &Clerk{}
+	// ck := MakeClerk(random_handles(ends))
+	// cfg.clerks[ck] = endnames
+	// cfg.nextClientId++
+	// cfg.ConnectClientUnlocked(ck, to)
 	return ck
 }
 
@@ -312,7 +314,7 @@ func (cfg *config) StartServer(i int) {
 	}
 	cfg.mu.Unlock()
 
-	cfg.kvservers[i] = StartKVServer(ends, i, cfg.saved[i], cfg.maxraftstate)
+	//cfg.kvservers[i] = StartKVServer(ends, i, cfg.saved[i], cfg.maxraftstate)
 
 	kvsvc := labrpc.MakeService(cfg.kvservers[i])
 	rfsvc := labrpc.MakeService(cfg.kvservers[i].rf)

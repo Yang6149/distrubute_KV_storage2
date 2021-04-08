@@ -2,7 +2,10 @@ package kvraft
 
 import (
 	"bytes"
+	"fmt"
 	"log"
+	"net"
+	"net/rpc"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -49,26 +52,25 @@ type KVServer struct {
 	// Your definitions here.
 }
 
-func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
+func (kv *KVServer) Get(args GetArgs, reply *GetReply) error {
 	_, isLeader := kv.rf.GetState()
 	if isLeader {
 		op := Op{"Get", args.Key, "", args.ClientId, args.SerialId}
 		reply.Value, reply.Err = kv.start(op)
 	}
+	return nil
 }
 
-func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
+func (kv *KVServer) PutAppend(args PutAppendArgs, reply *PutAppendReply) error {
 	_, isLeader := kv.rf.GetState()
 	if isLeader {
 		op := Op{args.Op, args.Key, args.Value, args.ClientId, args.SerialId}
 		_, Err := kv.start(op)
 		reply.Err = Err
-		return
 	} else {
 		reply.Err = ErrWrongLeader
-		return
 	}
-
+	return nil
 }
 
 func (kv *KVServer) start(op Op) (string, Err) {
@@ -150,7 +152,7 @@ func (kv *KVServer) killed() bool {
 // StartKVServer() must return quickly, so it should start goroutines
 // for any long-running work.
 //
-func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister, maxraftstate int) *KVServer {
+func StartKVServer(raftclient []*labrpc.Client, svrclient []*labrpc.Client, me int, persister *raft.Persister, maxraftstate int) *KVServer {
 	// call labgob.Register on structures you want
 	// Go's RPC library to marshall/unmarshall.
 	labgob.Register(Op{})
@@ -161,7 +163,23 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 
 	kv.data = make(map[string]string)
 	kv.applyCh = make(chan raft.ApplyMsg)
-	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
+	go func() {
+		rpc.RegisterName(svrclient[me].ClusterName, kv)
+		listener, err := net.Listen("tcp", "localhost:"+svrclient[me].Port)
+		fmt.Printf("serverName := %s \t listener := %s\n", svrclient[me].ClusterName, svrclient[me].Port)
+		if err != nil {
+			log.Fatal("ListenTCP error:", err)
+		}
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				log.Fatal("Accept error:", err)
+			}
+
+			go rpc.ServeConn(conn)
+		}
+	}()
+	kv.rf = raft.Make2(raftclient, me, persister, kv.applyCh)
 	kv.apps = make(map[int]chan Op)
 	kv.dup = make(map[int64]int)
 	kv.maxraftstate = maxraftstate

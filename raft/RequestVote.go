@@ -1,7 +1,5 @@
 package raft
 
-import "fmt"
-
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
@@ -28,7 +26,7 @@ type RequestVoteReply struct {
 // example RequestVote RPC handler.handler、handler、handler
 //
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error {
-	fmt.Printf("vote %d,response\n", rf.me)
+	//fmt.Printf("vote %d,response\n", rf.me)
 	// Your code here (2A, 2B).----------------------------------------
 	rf.mu.Lock()
 	defer rf.mu.Unlock()

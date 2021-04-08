@@ -9,7 +9,7 @@ import (
 )
 
 type Clerk struct {
-	servers []*labrpc.ClientEnd
+	servers []*labrpc.Client
 	me      int64
 	serial  int
 	leader  int
@@ -23,7 +23,7 @@ func nrand() int64 {
 	return x
 }
 
-func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
+func MakeClerk(servers []*labrpc.Client) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	ck.me = nrand()
@@ -56,7 +56,7 @@ func (ck *Clerk) Get(key string) string {
 	for {
 		DPrintf("get loop")
 		reply := GetReply{}
-		ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
+		ok := ck.servers[i].Call("Get", args, &reply)
 
 		// You will have to modify this function.
 		if reply.Err == OK && ok {
@@ -104,7 +104,7 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 
 		rep := make(chan bool)
 		go func() {
-			ok := ck.servers[target].Call("KVServer.PutAppend", &args, &reply)
+			ok := ck.servers[target].Call("PutAppend", args, &reply)
 			rep <- ok
 		}()
 		//DPrintf("put  %d ", target)

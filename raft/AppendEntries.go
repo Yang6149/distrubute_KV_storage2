@@ -1,10 +1,5 @@
 package raft
 
-import (
-	"fmt"
-	"time"
-)
-
 type AppendEntriesArgs struct {
 	Term         int
 	LeaderId     int
@@ -36,7 +31,6 @@ type InstallSnapshotsReply struct {
 }
 
 func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply) error {
-	fmt.Printf("append %d,response\n", rf.me)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
@@ -158,9 +152,7 @@ func (rf *Raft) sendInstallSnapshots(server int, args InstallSnapshotsArgs, repl
 }
 
 func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
-	start := time.Now()
 	ok := rf.client[server].Call("AppendEntries", args, reply)
-	fmt.Printf("me %d ,to %d ,count := %v reply : %v ,arg %v\n", rf.me, server, time.Since(start), reply, args)
 	return ok
 }
 

@@ -4,6 +4,7 @@ import (
 	"distrubute_KV_storage/labrpc"
 	"distrubute_KV_storage/raft"
 	"fmt"
+	"math/rand"
 	"os"
 	"sync"
 	"sync/atomic"
@@ -41,6 +42,7 @@ func make_myconfig(t *testing.T, n int, maxraftstate int) *Myconfig {
 	cfg.clerks = make(map[*Clerk][]string)
 	cfg.nextClientId = cfg.n + 1000 // client ids start 1000 above the highest serverid
 	cfg.maxraftstate = maxraftstate
+	cfg.start = time.Now()
 
 	// create a full set of KV servers.
 	for i := 0; i < cfg.n; i++ {
@@ -58,8 +60,8 @@ func (cfg *Myconfig) StartServer(i int) {
 	cfg.raftclients = make([]*labrpc.Client, cfg.n)
 	cfg.svrclients = make([]*labrpc.Client, cfg.n)
 	for j := 0; j < cfg.n; j++ {
-		cfg.raftclients[j] = labrpc.MakeMyClient("KV_Raft", i)
-		cfg.svrclients[j] = labrpc.MakeMySerClient("KV_SVR", i)
+		cfg.raftclients[j] = labrpc.MakeMyClient("KV_Raft", j)
+		cfg.svrclients[j] = labrpc.MakeMySerClient("KV_SVR", j)
 	}
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()
@@ -119,6 +121,40 @@ func (cfg *Myconfig) end() {
 func (cfg *Myconfig) checkTimeout() {
 	// enforce a two minute real-time limit on each test
 	if !cfg.t.Failed() && time.Since(cfg.start) > 120*time.Second {
-		cfg.t.Fatal("test took longer than 120 seconds")
+		cfg.t.Fatal("test took longer than 120 seconds"+time.Since(cfg.start).String())
 	}
 }
+
+func (cfg *Myconfig) checkLeader() int{
+	for iters := 0; iters < 100; iters++ {
+		ms := 450 + (rand.Int63() % 100)
+		time.Sleep(time.Duration(ms) * time.Millisecond)
+
+		leaders := make(map[int][]int)
+		for i := 0; i < cfg.n; i++ {
+			if term, leader := cfg.kvservers[i].rf.GetState(); leader {
+				leaders[term] = append(leaders[term], i)
+			}
+		}
+
+		lastTermWithLeader := -1
+		for term, leaders := range leaders {
+			if len(leaders) > 1 {
+				cfg.t.Fatalf("term %d has %d (>1) leaders", term, len(leaders))
+			}
+			if term > lastTermWithLeader {
+				lastTermWithLeader = term
+			}
+		}
+
+		if len(leaders) != 0 {
+
+			return leaders[lastTermWithLeader][0]
+
+		}
+	}
+	cfg.t.Fatalf("expected one leader, got none")
+	return -1
+}
+
+

@@ -1,6 +1,7 @@
 package kvraft
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"strconv"
@@ -8,7 +9,7 @@ import (
 	"testing"
 	"time"
 )
-
+var step = 0
 // get/put/putappend that keep counts
 func MyGet(cfg *Myconfig, ck *Clerk, key string) string {
 	v := ck.Get(key)
@@ -42,7 +43,6 @@ func normal(t *testing.T, nclients int) {
 	for i := 0; i < nclients; i++ {
 		clnts[i] = make(chan int)
 	}
-
 	for i := 0; i < 3; i++ {
 		// log.Printf("Iteration %v\n", i)
 		atomic.StoreInt32(&done_clients, 0)
@@ -71,12 +71,14 @@ func normal(t *testing.T, nclients int) {
 				}
 			}
 		})
-
+		step ++
+		fmt.Printf("before sleep  step := %d\n",step)
 		time.Sleep(5 * time.Second)
 
 		atomic.StoreInt32(&done_clients, 1) // tell clients to quit
 		// atomic.StoreInt32(&done_partitioner, 1) // tell partitioner to quit
-
+		step ++
+		fmt.Printf("after sleep  step := %d\n",step)
 		for i := 0; i < nclients; i++ {
 			j := <-clnts[i]
 			key := strconv.Itoa(i)
@@ -88,7 +90,11 @@ func normal(t *testing.T, nclients int) {
 	cfg.end()
 
 }
-
+func TestCheckLeader(t *testing.T) {
+	cfg := make_myconfig(t,3,-1)
+	a := cfg.checkLeader()
+	fmt.Println(a)
+}
 func TestNo1(t *testing.T) {
 	normal(t, 3)
 }

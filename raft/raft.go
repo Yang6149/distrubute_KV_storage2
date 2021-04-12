@@ -524,7 +524,6 @@ func (rf *Raft) apply() {
 	for {
 		select {
 		case index := <-rf.sendApply:
-			fmt.Printf("%d %d ************************************\n", rf.me, index)
 
 			for i := rf.lastApplied + 1; i <= index; i++ {
 				rf.mu.Lock()

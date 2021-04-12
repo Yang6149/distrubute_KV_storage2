@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36e2c65a-63e0-4522-b74f-2eb6355c98d4" name="Default Changelist" comment="" />
+    <list default="true" id="36e2c65a-63e0-4522-b74f-2eb6355c98d4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/raft/AppendEntries.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/AppendEntries.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/raft.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +19,9 @@
     </option>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
@@ -27,6 +34,11 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
@@ -38,5 +50,19 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="498" y="-878" key="#Deployment" timestamp="1618208761542">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="498" y="-878" key="#Deployment/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618208761542" />
+    <state x="599" y="-785" width="597" height="490" key="find.popup" timestamp="1618211834174">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="599" y="-785" width="597" height="490" key="find.popup/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618211834174" />
+    <state x="446" y="-891" key="ftp.server.browser" timestamp="1618208756404">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="446" y="-891" key="ftp.server.browser/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618208756404" />
   </component>
 </project>

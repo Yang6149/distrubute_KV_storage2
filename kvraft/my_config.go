@@ -30,7 +30,7 @@ type Myconfig struct {
 	mu    sync.Mutex
 }
 
-func make_myconfig(t *testing.T, n int, maxraftstate int) *Myconfig {
+func make_myconfig(t *testing.T, n int, maxraftstate int, unreliable bool,partitions bool) *Myconfig {
 
 	cfg := &Myconfig{}
 	cfg.t = t
@@ -46,7 +46,7 @@ func make_myconfig(t *testing.T, n int, maxraftstate int) *Myconfig {
 
 	// create a full set of KV servers.
 	for i := 0; i < cfg.n; i++ {
-		cfg.StartServer(i)
+		cfg.StartServer(i,unreliable,partitions)
 	}
 
 	//cfg.ConnectAll()
@@ -55,13 +55,13 @@ func make_myconfig(t *testing.T, n int, maxraftstate int) *Myconfig {
 	return cfg
 }
 
-func (cfg *Myconfig) StartServer(i int) {
+func (cfg *Myconfig) StartServer(i int, unreliable bool,partitions bool) {
 
 	cfg.raftclients = make([]*labrpc.Client, cfg.n)
 	cfg.svrclients = make([]*labrpc.Client, cfg.n)
 	for j := 0; j < cfg.n; j++ {
-		cfg.raftclients[j] = labrpc.MakeMyClient("KV_Raft", j)
-		cfg.svrclients[j] = labrpc.MakeMySerClient("KV_SVR", j)
+		cfg.raftclients[j] = labrpc.MakeMyClient("KV_Raft", j,unreliable,partitions)
+		cfg.svrclients[j] = labrpc.MakeMySerClient("KV_SVR", j,unreliable,partitions)
 	}
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()

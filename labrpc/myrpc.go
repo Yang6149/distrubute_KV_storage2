@@ -6,6 +6,7 @@ import (
 	"net/rpc"
 	"strconv"
 	"time"
+	"math/rand"
 )
 
 type HelloService struct{}
@@ -40,20 +41,26 @@ type Client struct {
 	Port        string      //端口
 	Num         int         //第几号机器
 	client      *rpc.Client //client
+	unreliable bool
+	partitions bool
 }
 
-func MakeMyClient(name string, i int) *Client {
+func MakeMyClient(name string, i int ,unreliable bool, partitions bool) *Client {
 	client := &Client{}
 	client.ClusterName = name + strconv.Itoa(i)
 	client.Port = "3000" + strconv.Itoa(i)
 	client.Num = i
+	client.unreliable = unreliable
+	client.partitions = partitions
 	return client
 }
-func MakeMySerClient(name string, i int) *Client {
+func MakeMySerClient(name string, i int,unreliable bool, partitions bool) *Client {
 	client := &Client{}
 	client.ClusterName = name + strconv.Itoa(i)
 	client.Port = "2000" + strconv.Itoa(i)
 	client.Num = i
+	client.unreliable = unreliable
+	client.partitions = partitions
 	return client
 }
 
@@ -65,6 +72,16 @@ func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool 
 			time.Sleep(time.Millisecond * 100)
 		}
 		c.client = client
+	}
+	if c.unreliable == true{
+		// short delay
+		ms := (rand.Int() % 27)
+		time.Sleep(time.Duration(ms) * time.Millisecond)
+	}
+
+	if c.unreliable == true && (rand.Int()%1000) < 100 {
+		// drop the request, return as if timeout
+		return false
 	}
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {

@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="36e2c65a-63e0-4522-b74f-2eb6355c98d4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/AppendEntries.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/AppendEntries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/raft.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kvraft/my_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/kvraft/my_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kvraft/my_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kvraft/my_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labrpc/myrpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/labrpc/myrpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/raft/my_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/my_config.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

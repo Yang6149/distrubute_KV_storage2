@@ -33,7 +33,7 @@ func make_my_config(t *testing.T, n int) *MyConfig {
 	cfg.logs = make([]map[int]interface{}, cfg.n)
 
 	for i := 0; i < n; i++ {
-		cfg.clients[i] = labrpc.MakeMyClient("Raft", i)
+		cfg.clients[i] = labrpc.MakeMyClient("Raft", i,false,false)
 	}
 	for i := 0; i < n; i++ {
 		cfg.logs[i] = map[int]interface{}{}

@@ -34,8 +34,21 @@ func Mycheck(cfg *Myconfig, t *testing.T, ck *Clerk, key string, value string) {
 	}
 }
 
-func normal(t *testing.T, nclients int) {
-	cfg := make_myconfig(t, 3, -1)
+func normal(t *testing.T, nclients int, unreliable bool,partitions bool) {
+
+	title := "Test: "
+	if unreliable {
+		// the network drops RPC requests and replies.
+		title = title + "unreliable net, "
+	}
+	if partitions {
+		// the network may partition
+		title = title + "partitions, "
+	}
+	fmt.Println("kv:"+title)
+
+
+	cfg := make_myconfig(t, 3, -1, unreliable,partitions)
 	ck := cfg.makeClient(cfg.All()) //ck
 	// done_partitioner := int32(0)      //是否结束partition
 	done_clients := int32(0) //是否结束整个client
@@ -91,12 +104,15 @@ func normal(t *testing.T, nclients int) {
 
 }
 func TestCheckLeader(t *testing.T) {
-	cfg := make_myconfig(t,3,-1)
+	cfg := make_myconfig(t,3,-1,false,false)
 	a := cfg.checkLeader()
 	fmt.Println(a)
 }
 func TestNo1(t *testing.T) {
-	normal(t, 3)
+	normal(t, 3,false,false)
+}
+func TestMyUnreliable(t *testing.T) {
+	normal(t, 3,true,false)
 }
 
 // // repartition the servers periodically

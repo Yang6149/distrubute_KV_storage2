@@ -278,9 +278,9 @@ func (cfg *config) StartMasterServer(i int) {
 		cfg.net.Enable(endname, true)
 	}
 
-	p := raft.MakePersister()
+	//p := raft.MakePersister()
 
-	cfg.masterservers[i] = shardmaster.StartServer(ends, i, p)
+	//cfg.masterservers[i] = shardmaster.StartServer(ends, i, p)
 
 	msvc := labrpc.MakeService(cfg.masterservers[i])
 	rfsvc := labrpc.MakeService(cfg.masterservers[i].Raft())
@@ -290,17 +290,8 @@ func (cfg *config) StartMasterServer(i int) {
 	cfg.net.AddServer(cfg.mastername(i), srv)
 }
 
-func (cfg *config) shardclerk() *shardmaster.Clerk {
-	// ClientEnds to talk to master service.
-	ends := make([]*labrpc.ClientEnd, cfg.nmasters)
-	for j := 0; j < cfg.nmasters; j++ {
-		name := randstring(20)
-		ends[j] = cfg.net.MakeEnd(name)
-		cfg.net.Connect(name, cfg.mastername(j))
-		cfg.net.Enable(name, true)
-	}
+func (cfg *config) shardclerk() {
 
-	return shardmaster.MakeClerk(ends)
 }
 
 // tell the shardmaster that a group is joining.
@@ -356,7 +347,7 @@ func make_config(t *testing.T, n int, unreliable bool, maxraftstate int) *config
 	for i := 0; i < cfg.nmasters; i++ {
 		cfg.StartMasterServer(i)
 	}
-	cfg.mck = cfg.shardclerk()
+	//cfg.mck = cfg.shardclerk()
 
 	cfg.ngroups = 3
 	cfg.groups = make([]*group, cfg.ngroups)

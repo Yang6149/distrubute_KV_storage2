@@ -152,7 +152,7 @@ func (kv *KVServer) killed() bool {
 // StartKVServer() must return quickly, so it should start goroutines
 // for any long-running work.
 //
-func StartKVServer(raftclient []*labrpc.Client, svrclient []*labrpc.Client, me int, persister *raft.Persister, maxraftstate int) *KVServer {
+func StartKVServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]map[int]*labrpc.Client, me,g int, persister *raft.Persister, maxraftstate int) *KVServer {
 	// call labgob.Register on structures you want
 	// Go's RPC library to marshall/unmarshall.
 	labgob.Register(Op{})
@@ -164,9 +164,9 @@ func StartKVServer(raftclient []*labrpc.Client, svrclient []*labrpc.Client, me i
 	kv.data = make(map[string]string)
 	kv.applyCh = make(chan raft.ApplyMsg)
 	go func() {
-		rpc.RegisterName(svrclient[me].ClusterName, kv)
-		listener, err := net.Listen("tcp", "localhost:"+svrclient[me].Port)
-		fmt.Printf("serverName := %s \t listener := %s\n", svrclient[me].ClusterName, svrclient[me].Port)
+		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, kv)
+		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
+		fmt.Printf("serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
 		}
@@ -179,7 +179,7 @@ func StartKVServer(raftclient []*labrpc.Client, svrclient []*labrpc.Client, me i
 			go rpc.ServeConn(conn)
 		}
 	}()
-	kv.rf = raft.Make2(raftclient, me, persister, kv.applyCh)
+	kv.rf = raft.Make2(raftclients, me, 0,persister, kv.applyCh)
 	kv.apps = make(map[int]chan Op)
 	kv.dup = make(map[int64]int)
 	kv.maxraftstate = maxraftstate

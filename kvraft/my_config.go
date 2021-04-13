@@ -17,11 +17,12 @@ type Myconfig struct {
 	n            int
 	kvservers    []*KVServer
 	saved        []*raft.Persister
-	raftclients  []*labrpc.Client
-	svrclients   []*labrpc.Client
+	raftclients  map[int]map[int]*labrpc.Client  //[group+me][target(group+me)]Client
+	svrclients   map[int]map[int]*labrpc.Client	 //[clientNum][target(group+me)]Client
 	clerks       map[*Clerk][]string
 	nextClientId int
 	maxraftstate int
+	net          *labrpc.NetWork
 	start        time.Time // time at which make_config() was called
 	// begin()/end() statistics
 	t0    time.Time // time at which test_test.go called cfg.begin()
@@ -30,23 +31,24 @@ type Myconfig struct {
 	mu    sync.Mutex
 }
 
-func make_myconfig(t *testing.T, n int, maxraftstate int, unreliable bool,partitions bool) *Myconfig {
+func make_myconfig(t *testing.T, n int, maxraftstate int, unreliable bool, partitions bool) *Myconfig {
 
 	cfg := &Myconfig{}
 	cfg.t = t
 	cfg.n = n
 	cfg.kvservers = make([]*KVServer, cfg.n)
 	cfg.saved = make([]*raft.Persister, cfg.n)
-	cfg.raftclients = make([]*labrpc.Client, cfg.n)
-	cfg.svrclients = make([]*labrpc.Client, cfg.n)
+	cfg.raftclients = make(map[int]map[int]*labrpc.Client, cfg.n)
+	cfg.svrclients = make(map[int]map[int]*labrpc.Client, cfg.n)
 	cfg.clerks = make(map[*Clerk][]string)
 	cfg.nextClientId = cfg.n + 1000 // client ids start 1000 above the highest serverid
 	cfg.maxraftstate = maxraftstate
 	cfg.start = time.Now()
+	cfg.net = labrpc.MakeNet(unreliable, partitions, n)
 
 	// create a full set of KV servers.
 	for i := 0; i < cfg.n; i++ {
-		cfg.StartServer(i,unreliable,partitions)
+		cfg.StartServer(i,0)
 	}
 
 	//cfg.ConnectAll()
@@ -55,20 +57,16 @@ func make_myconfig(t *testing.T, n int, maxraftstate int, unreliable bool,partit
 	return cfg
 }
 
-func (cfg *Myconfig) StartServer(i int, unreliable bool,partitions bool) {
+func (cfg *Myconfig) StartServer(i, g int) {
 
-	cfg.raftclients = make([]*labrpc.Client, cfg.n)
-	cfg.svrclients = make([]*labrpc.Client, cfg.n)
-	for j := 0; j < cfg.n; j++ {
-		cfg.raftclients[j] = labrpc.MakeMyClient("KV_Raft", j,unreliable,partitions)
-		cfg.svrclients[j] = labrpc.MakeMySerClient("KV_SVR", j,unreliable,partitions)
-	}
+	cfg.raftclients[g*100+i] = labrpc.MakeGroupRaftClient(i, g, cfg.n, cfg.net)
+	cfg.raftclients[g*100+i] = labrpc.MakeGroupSerClient(i, g, cfg.n, cfg.net)
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()
 	} else {
 		cfg.saved[i] = raft.MakePersister()
 	}
-	cfg.kvservers[i] = StartKVServer(cfg.raftclients, cfg.svrclients, i, cfg.saved[i], cfg.maxraftstate)
+	cfg.kvservers[i] = StartKVServer(cfg.raftclients, cfg.svrclients, i,g, cfg.saved[i], cfg.maxraftstate)
 }
 
 func (cfg *Myconfig) Leader() (bool, int) {
@@ -89,7 +87,11 @@ func (cfg *Myconfig) op() {
 }
 
 func (cfg *Myconfig) makeClient(n []int) *Clerk {
-	ck := MakeClerk(cfg.svrclients)
+	cks := make([]*labrpc.Client,0)
+	for _,v:= range cfg.svrclients[0]{
+		cks = append(cks,v)
+	}
+	ck := MakeClerk(cks)
 
 	return ck
 }
@@ -121,11 +123,11 @@ func (cfg *Myconfig) end() {
 func (cfg *Myconfig) checkTimeout() {
 	// enforce a two minute real-time limit on each test
 	if !cfg.t.Failed() && time.Since(cfg.start) > 120*time.Second {
-		cfg.t.Fatal("test took longer than 120 seconds"+time.Since(cfg.start).String())
+		cfg.t.Fatal("test took longer than 120 seconds" + time.Since(cfg.start).String())
 	}
 }
 
-func (cfg *Myconfig) checkLeader() int{
+func (cfg *Myconfig) checkLeader() int {
 	for iters := 0; iters < 100; iters++ {
 		ms := 450 + (rand.Int63() % 100)
 		time.Sleep(time.Duration(ms) * time.Millisecond)

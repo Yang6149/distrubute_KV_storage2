@@ -61,7 +61,7 @@ type Clerk struct {
 //
 func MakeClerk(masters []*labrpc.ClientEnd, make_end func(string) *labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
-	ck.sm = shardmaster.MakeClerk(masters)
+	//ck.sm = shardmaster.MakeClerk(masters)
 	ck.make_end = make_end
 
 	ck.me = nrand()

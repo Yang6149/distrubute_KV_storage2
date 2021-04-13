@@ -6,6 +6,7 @@ package shardmaster
 
 import (
 	"crypto/rand"
+	"fmt"
 	"math/big"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 )
 
 type Clerk struct {
-	servers []*labrpc.ClientEnd
+	servers []*labrpc.Client
 	// Your data here.
 	id       int64
 	serialId int
@@ -27,7 +28,7 @@ func nrand() int64 {
 	return x
 }
 
-func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
+func MakeClerk(servers []*labrpc.Client) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	ck.id = nrand()
@@ -40,7 +41,7 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 func (ck *Clerk) Query(num int) Config {
 	//如果多个client 同时发起命令还想保持线性化结果，就不能注释掉下一行
 	ck.serialId++
-	args := &QueryArgs{Num: num}
+	args := QueryArgs{Num: num}
 	// Your code here.
 	args.Num = num
 	args.ClientId = ck.id
@@ -49,7 +50,8 @@ func (ck *Clerk) Query(num int) Config {
 		// try each known server.
 		srv := ck.servers[ck.leader]
 		var reply QueryReply
-		ok := srv.Call("ShardMaster.Query", args, &reply)
+		ok := srv.Call("Query", args, &reply)
+		fmt.Println(reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return reply.Config
 		}
@@ -60,7 +62,7 @@ func (ck *Clerk) Query(num int) Config {
 
 func (ck *Clerk) Join(servers map[int][]string) {
 	ck.serialId++
-	args := &JoinArgs{}
+	args := JoinArgs{}
 	// Your code here.
 	args.Servers = servers
 	args.ClientId = ck.id
@@ -69,7 +71,7 @@ func (ck *Clerk) Join(servers map[int][]string) {
 		// try each known server.
 		srv := ck.servers[ck.leader]
 		var reply JoinReply
-		ok := srv.Call("ShardMaster.Join", args, &reply)
+		ok := srv.Call("Join", args, &reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
@@ -80,7 +82,7 @@ func (ck *Clerk) Join(servers map[int][]string) {
 
 func (ck *Clerk) Leave(gids []int) {
 	ck.serialId++
-	args := &LeaveArgs{}
+	args := LeaveArgs{}
 	// Your code here.
 	args.GIDs = gids
 	args.ClientId = ck.id
@@ -89,7 +91,7 @@ func (ck *Clerk) Leave(gids []int) {
 		// try each known server.
 		srv := ck.servers[ck.leader]
 		var reply LeaveReply
-		ok := srv.Call("ShardMaster.Leave", args, &reply)
+		ok := srv.Call("Leave", args, &reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
@@ -100,7 +102,7 @@ func (ck *Clerk) Leave(gids []int) {
 
 func (ck *Clerk) Move(shard int, gid int) {
 	ck.serialId++
-	args := &MoveArgs{}
+	args := MoveArgs{}
 	// Your code here.
 	args.Shard = shard
 	args.GID = gid
@@ -110,7 +112,7 @@ func (ck *Clerk) Move(shard int, gid int) {
 		// try each known server.
 		srv := ck.servers[ck.leader]
 		var reply MoveReply
-		ok := srv.Call("ShardMaster.Move", args, &reply)
+		ok := srv.Call("Move", args, &reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}

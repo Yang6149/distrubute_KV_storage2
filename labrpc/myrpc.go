@@ -2,11 +2,14 @@ package labrpc
 
 import (
 	"fmt"
-	"log"
+	"math/rand"
 	"net/rpc"
 	"strconv"
 	"time"
-	"math/rand"
+)
+const(
+	RaftName = "Raft"
+	SerName = "Ser"
 )
 
 type HelloService struct{}
@@ -37,30 +40,41 @@ func RegisterHelloService(svc HelloServiceInterface, serName string) error {
 //***************************************
 
 type Client struct {
-	ClusterName string      //集群名字
-	Port        string      //端口
-	Num         int         //第几号机器
+	Me          int    //代表自己单独Client
+	ClusterName string //集群名字
+	Port        string //端口
+	Num         int    //第几号机器
+	Group       int
 	client      *rpc.Client //client
-	unreliable bool
-	partitions bool
+	net         *NetWork
+}
+type NetWork struct {
+	Unreliable  bool
+	Partitions  bool
+	Connect     map[int]map[int]bool
+	ServerState map[int]bool
 }
 
-func MakeMyClient(name string, i int ,unreliable bool, partitions bool) *Client {
+
+
+func MakeMyClient(m int,name string, group int, i int, net *NetWork) *Client {
 	client := &Client{}
-	client.ClusterName = name + strconv.Itoa(i)
-	client.Port = "3000" + strconv.Itoa(i)
+	client.Me = m
+	client.Port = strconv.Itoa(30000 + group*100 + i)
+	client.Group = group
 	client.Num = i
-	client.unreliable = unreliable
-	client.partitions = partitions
+	client.ClusterName = name + strconv.Itoa(group*100+i)
+	client.net = net
 	return client
 }
-func MakeMySerClient(name string, i int,unreliable bool, partitions bool) *Client {
+func MakeMySerClient(m int,name string, group int, i int, net *NetWork) *Client {
 	client := &Client{}
-	client.ClusterName = name + strconv.Itoa(i)
-	client.Port = "2000" + strconv.Itoa(i)
+	client.Me = m
+	client.Port = strconv.Itoa(20000 + group*100 + i)
+	client.Group = group
 	client.Num = i
-	client.unreliable = unreliable
-	client.partitions = partitions
+	client.ClusterName = name + strconv.Itoa(group*100+i)
+	client.net = net
 	return client
 }
 
@@ -68,18 +82,18 @@ func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool 
 	for c.client == nil {
 		client, err := rpc.Dial("tcp", "localhost:"+c.Port)
 		if err != nil {
-			log.Println("dialing:", err)
+			//log.Println("dialing:", err)
 			time.Sleep(time.Millisecond * 100)
 		}
 		c.client = client
 	}
-	if c.unreliable == true{
+	if c.net.Unreliable == true {
 		// short delay
 		ms := (rand.Int() % 27)
 		time.Sleep(time.Duration(ms) * time.Millisecond)
 	}
 
-	if c.unreliable == true && (rand.Int()%1000) < 100 {
+	if c.net.Unreliable == true && (rand.Int()%1000) < 100 {
 		// drop the request, return as if timeout
 		return false
 	}
@@ -88,4 +102,65 @@ func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool 
 		fmt.Print("错误" + err.Error() + "\n")
 	}
 	return true
+}
+func MakeNet(Unreliable, Partitions bool, n int) *NetWork {
+	net := &NetWork{}
+	net.Unreliable = Unreliable
+	net.Partitions = Partitions
+	net.Connect = make(map[int]map[int]bool)
+	for i := 0; i < n; i++ {
+		net.Connect[i] = make(map[int]bool)
+		net.ServerState[i] = true
+		for j := 0; j < n; j++ {
+			net.Connect[i][j] = true
+		}
+	}
+	return net
+}
+func MakeAllNet(Unreliable, Partitions bool,nmaster ,ngroup ,n int) *NetWork {
+	net := &NetWork{}
+	net.Unreliable = Unreliable
+	net.Partitions = Partitions
+	net.Connect = make(map[int]map[int]bool)
+	// 初始化 master集群间互相通信
+	for i := 0; i < nmaster; i++ {
+		net.Connect[i] = make(map[int]bool)
+		for j := 0; j < nmaster; j++ {
+			net.Connect[i][j] = true
+		}
+	}
+	// 初始化所有group间通信
+	for g := 1; g <= ngroup; g++ {
+		for i := 0; i < n; i++ {
+			net.Connect[g*100+i] = make(map[int]bool)
+			for j := 0; j < n; j++ {
+				net.Connect[g*100+i][g*100+j] = true
+			}
+		}
+	}
+
+
+	return net
+}
+
+//me+g 为自己，n为有几台机器
+func MakeGroupRaftClient(me, g int, n int,net *NetWork) map[int]*Client {
+	//
+	m := make(map[int]*Client)
+	for i := 0; i < n; i++ {
+		m[i] =MakeMyClient(me+g*100,RaftName,g,i,net)
+	}
+	return m
+}
+//me+g 为目标
+func MakeGroupSerClient(me, g int, n int,net *NetWork) map[int]*Client {
+	m := make(map[int]*Client)
+	for i := 0; i < n; i++ {
+		m[i] =MakeMySerClient(me+g*100,SerName,g,i,net)
+	}
+	return m
+}
+
+func (net *NetWork) Disconnect(i, j int) {
+
 }

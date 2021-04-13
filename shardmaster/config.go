@@ -173,8 +173,8 @@ func (cfg *config) makeClient(to []int) *Clerk {
 		ends[j] = cfg.net.MakeEnd(endnames[j])
 		cfg.net.Connect(endnames[j], j)
 	}
-
-	ck := MakeClerk(random_handles(ends))
+	ck := new(Clerk)
+	//ck := MakeClerk(random_handles(ends))
 	cfg.clerks[ck] = endnames
 	cfg.nextClientId++
 	cfg.ConnectClientUnlocked(ck, to)
@@ -286,7 +286,7 @@ func (cfg *config) StartServer(i int) {
 
 	cfg.mu.Unlock()
 
-	cfg.servers[i] = StartServer(ends, i, cfg.saved[i])
+	//cfg.servers[i] = StartServer(ends, i, cfg.saved[i])
 
 	kvsvc := labrpc.MakeService(cfg.servers[i])
 	rfsvc := labrpc.MakeService(cfg.servers[i].rf)

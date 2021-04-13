@@ -7,7 +7,6 @@ import (
 	"math/rand"
 	"net"
 	"net/rpc"
-	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -52,11 +51,12 @@ type Raft struct {
 	mu         sync.Mutex // Lock to protect shared access to this peer's state
 	LeaderCond sync.Cond
 	peers      []*labrpc.ClientEnd // RPC end points of all peers
-	client     []*labrpc.Client    // true RPC client
+	client     map[int]map[int]*labrpc.Client   // true RPC client
 	persister  *Persister          // Object to hold this peer's persisted state
 	me         int                 // this peer's index into peers[]
 	dead       int32               // set by Kill()
 	state      int
+	start      time.Time
 
 	//持久化
 	currentTerm int     // 当前的 term
@@ -311,22 +311,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf := &Raft{}
 	//rpc.RegisterName("HelloService", new(Raft))
 	rf.peers = peers
-	go func() {
-		rpc.RegisterName("Server"+strconv.Itoa(me)+"Raft", rf)
-		listener, err := net.Listen("tcp", ":3000"+strconv.Itoa(me))
-		fmt.Printf("serverName := %s \t listener := "+":3000"+strconv.Itoa(me)+"\n", "Server"+strconv.Itoa(me)+"Raft")
-		if err != nil {
-			log.Fatal("ListenTCP error:", err)
-		}
-		for {
-			conn, err := listener.Accept()
-			if err != nil {
-				log.Fatal("Accept error:", err)
-			}
-
-			go rpc.ServeConn(conn)
-		}
-	}()
 	rf.persister = persister
 	rf.me = me
 	rf.menkan = len(rf.client)/2 + 1
@@ -410,14 +394,15 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	go rf.apply()
 	return rf
 }
-func Make2(client []*labrpc.Client, me int,
+func Make2(client map[int]map[int]*labrpc.Client, me int, g int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
 	rf := &Raft{}
+	rf.start = time.Now()
 	//rpc.RegisterName("HelloService", new(Raft))
 	go func() {
-		rpc.RegisterName(client[me].ClusterName, rf)
-		listener, err := net.Listen("tcp", "localhost:"+client[me].Port)
-		fmt.Printf("serverName := %s \t listener := %s\n", client[me].ClusterName, client[me].Port)
+		rpc.RegisterName(client[me+g*100][me+g*100].ClusterName, rf)
+		listener, err := net.Listen("tcp", "localhost:"+client[me+g*100][me+g*100].Port)
+		fmt.Printf("serverName := %s \t listener := %s\n", client[me+g*100][me+g*100].ClusterName, client[me+g*100][me+g*100].Port)
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
 		}
@@ -451,12 +436,14 @@ func Make2(client []*labrpc.Client, me int,
 
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
+	fmt.Printf("%d 开始 log为%d\n", rf.me, rf.logLen()-1)
 	go func(rf *Raft) {
 		for {
 			if rf.killed() {
 				rf.mu.Lock()
 				defer rf.mu.Unlock()
 				rf.convert(follower)
+				fmt.Printf("%d %v退出 log为%d\n", rf.me, rf.start,rf.logLen()-1)
 				return
 			}
 			rf.mu.Lock()

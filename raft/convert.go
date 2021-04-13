@@ -1,6 +1,9 @@
 package raft
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 func (rf *Raft) convert(state int) {
 	if state == rf.state {
@@ -18,7 +21,7 @@ func (rf *Raft) convert(state int) {
 		rf.voteFor = rf.me
 	case leader:
 		//rf.chanReset()
-		DPrintf("%d 转变为 leader", rf.me)
+		log.Printf("%d 转变为 leader\n", rf.me)
 		fmt.Printf("%d 转变为 leader\n", rf.me)
 		//初始化 每个follower 的HBchs
 		//初始化 leader 的nextIndex

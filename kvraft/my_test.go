@@ -114,6 +114,9 @@ func TestNo1(t *testing.T) {
 func TestMyUnreliable(t *testing.T) {
 	normal(t, 3,true,false)
 }
+func TestMyPartition(t *testing.T) {
+	normal(t, 3,false,true)
+}
 
 // // repartition the servers periodically
 // func mypartitioner(t *testing.T, cfg *Myconfig, ch chan bool, done *int32) {

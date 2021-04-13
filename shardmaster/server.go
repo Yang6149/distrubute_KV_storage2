@@ -1,6 +1,10 @@
 package shardmaster
 
 import (
+	"fmt"
+	"log"
+	"net"
+	"net/rpc"
 	"sort"
 	"sync"
 	"sync/atomic"
@@ -25,9 +29,10 @@ type ShardMaster struct {
 
 	// Your data here.
 
-	configs []Config // indexed by config num
-	apps    map[int]chan Op
-	dup     map[int64]int
+	configs  []Config // indexed by config num
+	apps     map[int]chan Op
+	dup      map[int64]int
+	listener *net.Listener
 }
 
 type Op struct {
@@ -48,10 +53,10 @@ type Op struct {
 	Config   Config
 }
 
-func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
+func (sm *ShardMaster) Join(args JoinArgs, reply *JoinReply) error {
 	if _, isLeader := sm.rf.GetState(); !isLeader {
 		reply.WrongLeader = true
-		return
+		return nil
 	}
 	op := Op{}
 	op.Type = Join
@@ -62,15 +67,15 @@ func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 	wrongLeader, err, _ := sm.start(op)
 	reply.WrongLeader = wrongLeader
 	reply.Err = err
-	return
+	return nil
 
 	// Your code here.
 }
 
-func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
+func (sm *ShardMaster) Leave(args LeaveArgs, reply *LeaveReply) error {
 	if _, isLeader := sm.rf.GetState(); !isLeader {
 		reply.WrongLeader = true
-		return
+		return nil
 	}
 	op := Op{}
 	op.Type = Leave
@@ -81,13 +86,13 @@ func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
 	wrongLeader, err, _ := sm.start(op)
 	reply.WrongLeader = wrongLeader
 	reply.Err = err
-	return
+	return nil
 }
 
-func (sm *ShardMaster) Move(args *MoveArgs, reply *MoveReply) {
+func (sm *ShardMaster) Move(args MoveArgs, reply *MoveReply) error {
 	if _, isLeader := sm.rf.GetState(); !isLeader {
 		reply.WrongLeader = true
-		return
+		return nil
 	}
 	op := Op{}
 	op.Type = Move
@@ -99,14 +104,19 @@ func (sm *ShardMaster) Move(args *MoveArgs, reply *MoveReply) {
 	wrongLeader, err, _ := sm.start(op)
 	reply.WrongLeader = wrongLeader
 	reply.Err = err
-	return
+	return nil
 }
 
-func (sm *ShardMaster) Query(args *QueryArgs, reply *QueryReply) {
+func (sm *ShardMaster) Query(args QueryArgs, reply *QueryReply) error {
 	if _, isLeader := sm.rf.GetState(); !isLeader {
 		reply.WrongLeader = true
-		return
+		return nil
 	}
+	//if term, isLeader := sm.rf.GetState(); !isLeader {
+	//	reply.WrongLeader = true
+	//	fmt.Println(sm.me,term)
+	//	return nil
+	//}
 	op := Op{}
 	op.Type = Query
 	op.Num = args.Num
@@ -116,7 +126,7 @@ func (sm *ShardMaster) Query(args *QueryArgs, reply *QueryReply) {
 	reply.WrongLeader = wrongLeader
 	reply.Err = err
 	reply.Config = config
-	return
+	return nil
 }
 
 func (sm *ShardMaster) start(op Op) (bool, Err, Config) { //wrongLeader , Err
@@ -141,7 +151,7 @@ func (sm *ShardMaster) start(op Op) (bool, Err, Config) { //wrongLeader , Err
 		defer sm.mu.Unlock()
 		return true, "", resConfig
 	}
-	DPrintf("%d 发送了 %d", sm.me, op)
+	DPrintf("%d 发送了 %v", sm.me, op)
 	ch := make(chan Op, 1)
 	sm.apps[index] = ch
 	sm.mu.Unlock()
@@ -154,8 +164,8 @@ func (sm *ShardMaster) start(op Op) (bool, Err, Config) { //wrongLeader , Err
 	case oop := <-ch:
 		//返回成功
 		if op.ClientId == oop.ClientId && op.SerialId == oop.SerialId {
-			DPrintf("return op ", oop)
-			DPrintf("全部log ", sm.configs)
+			DPrintf("return op %v", oop)
+			DPrintf("全部log %v", sm.configs)
 			sm.mu.Lock()
 			defer sm.mu.Unlock()
 			//sm.dup[op.ClientId] = op.SerialId
@@ -180,7 +190,10 @@ func (sm *ShardMaster) start(op Op) (bool, Err, Config) { //wrongLeader , Err
 func (sm *ShardMaster) Kill() {
 	atomic.StoreInt32(&sm.dead, 1)
 	DPrintf("%d :杀死一个 server", sm.me)
+	(*sm.listener).Close()
+	fmt.Println("close sm",sm.me)
 	sm.rf.Kill()
+
 	// Your code here, if desired.
 }
 
@@ -200,7 +213,8 @@ func (sm *ShardMaster) Raft() *raft.Raft {
 // form the fault-tolerant shardmaster service.
 // me is the index of the current server in servers[].
 //
-func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister) *ShardMaster {
+func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]map[int]*labrpc.Client, me ,g int, persister *raft.Persister) *ShardMaster {
+	fmt.Println("开启服务",me)
 	sm := new(ShardMaster)
 	sm.me = me
 
@@ -209,10 +223,31 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister)
 
 	labgob.Register(Op{})
 	sm.applyCh = make(chan raft.ApplyMsg)
-	sm.rf = raft.Make(servers, me, persister, sm.applyCh)
+	sm.rf = raft.Make2(raftclients, me, g, persister, sm.applyCh)
 	sm.apps = make(map[int]chan Op)
 	sm.dup = make(map[int64]int)
 	// Your code here.
+	go func() {
+		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, sm)
+		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
+		sm.listener = &listener
+		fmt.Printf("serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
+
+		if err != nil {
+			log.Fatal("ListenTCP error:", err)
+		}
+		for {
+			conn, err := listener.Accept()
+			if sm.killed() {
+				return
+			}
+			if err != nil {
+				log.Fatal("Accept error:", err)
+			}
+
+			go rpc.ServeConn(conn)
+		}
+	}()
 	go sm.apply()
 	DPrintf("%d init", me)
 	return sm
@@ -258,7 +293,7 @@ func (sm *ShardMaster) apply() {
 				}
 				sm.loadBalance(&op.Config)
 				sm.configs = append(sm.configs, op.Config)
-				DPrintf("%d : join config", sm.me, op.Config)
+				DPrintf("%d : join config %v", sm.me, op.Config)
 			case Leave:
 				for _, v := range op.GIDs {
 					delete(op.Config.Groups, v)

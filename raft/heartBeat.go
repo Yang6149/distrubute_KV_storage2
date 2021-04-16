@@ -11,7 +11,8 @@ leader 用来并发的向 follower 们发送 AppendEntries
 */
 func (rf *Raft) heartBeat() {
 	//DPrintf("%d ： 我现在的 dead为 %d",rf.me,rf.dead)
-	for i := range rf.client {
+	for i := range rf.client[rf.MyId()] {
+		i = i%100
 		if i == rf.me {
 			continue
 		}
@@ -165,7 +166,8 @@ func (rf *Raft) heartBeatForN(i int) {
 	}
 }
 func (rf *Raft) heartBeatInit() {
-	for i := range rf.client {
+	for i := range rf.client[rf.MyId()] {
+		i = i%100
 		if i == rf.me {
 			continue
 		}

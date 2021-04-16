@@ -20,25 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36e2c65a-63e0-4522-b74f-2eb6355c98d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shardkv/my_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shardkv/my_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shardmaster/my_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shardmaster/my_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kvraft/my_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/kvraft/my_config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kvraft/my_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kvraft/my_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kvraft/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/kvraft/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labrpc/myrpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/labrpc/myrpc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/RequestVote.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/RequestVote.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/convert.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/convert.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/election.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/election.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/my_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/my_config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft/raft.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shardkv/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardkv/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shardkv/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardkv/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shardkv/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/shardkv/logfile.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shardkv/my_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardkv/my_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shardkv/my_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardkv/my_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shardmaster/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardmaster/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shardmaster/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardmaster/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shardmaster/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/shardmaster/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +66,24 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager">
+    <configuration name="TestTime in distrubute_KV_storage/shardkv" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="distrubute_KV_storage" />
+      <working_directory value="$PROJECT_DIR$/shardkv" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="distrubute_KV_storage/shardkv" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestTime\E$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestTime in distrubute_KV_storage/shardkv" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -106,13 +112,33 @@
       <screen x="-62" y="-1080" width="1920" height="1080" />
     </state>
     <state x="362" y="-881" key="#com.intellij.execution.impl.EditConfigurationsDialog/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618281220178" />
-    <state x="599" y="-785" width="597" height="490" key="find.popup" timestamp="1618224373386">
+    <state width="939" height="382" key="GridCell.Tab.0.bottom" timestamp="1618475383736">
       <screen x="-62" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="599" y="-785" width="597" height="490" key="find.popup/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618224373386" />
+    <state width="939" height="382" key="GridCell.Tab.0.bottom/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618475383736" />
+    <state width="939" height="382" key="GridCell.Tab.0.center" timestamp="1618475383734">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state width="939" height="382" key="GridCell.Tab.0.center/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618475383734" />
+    <state width="939" height="382" key="GridCell.Tab.0.left" timestamp="1618475383733">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state width="939" height="382" key="GridCell.Tab.0.left/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618475383733" />
+    <state width="939" height="382" key="GridCell.Tab.0.right" timestamp="1618475383735">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state width="939" height="382" key="GridCell.Tab.0.right/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618475383735" />
+    <state x="599" y="-785" width="597" height="490" key="find.popup" timestamp="1618565436892">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="599" y="-785" width="597" height="490" key="find.popup/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618565436892" />
     <state x="446" y="-891" key="ftp.server.browser" timestamp="1618208756404">
       <screen x="-62" y="-1080" width="1920" height="1080" />
     </state>
     <state x="446" y="-891" key="ftp.server.browser/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618208756404" />
+    <state x="563" y="-818" width="670" height="676" key="search.everywhere.popup" timestamp="1618479000106">
+      <screen x="-62" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="563" y="-818" width="670" height="676" key="search.everywhere.popup/-62.-1080.1920.1080/0.0.1792.1120@-62.-1080.1920.1080" timestamp="1618479000106" />
   </component>
 </project>

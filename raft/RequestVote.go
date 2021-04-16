@@ -114,6 +114,8 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error
 // the struct itself.
 //
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	ok := rf.client[server].Call("RequestVote", *args, reply)
+	fmt.Println(rf.client[rf.MyId()])
+	fmt.Println("ser",server)
+	ok := rf.client[rf.MyId()][server+rf.g*100].Call("RequestVote", *args, reply)
 	return ok
 }

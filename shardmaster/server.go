@@ -231,7 +231,7 @@ func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]
 		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, sm)
 		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
 		sm.listener = &listener
-		fmt.Printf("serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
+		fmt.Printf("shardmaster serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
 
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)

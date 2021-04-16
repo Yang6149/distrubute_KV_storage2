@@ -166,7 +166,7 @@ func StartKVServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[in
 	go func() {
 		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, kv)
 		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
-		fmt.Printf("serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
+		fmt.Printf("kvraft serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
 		}

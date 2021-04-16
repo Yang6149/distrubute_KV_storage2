@@ -21,6 +21,8 @@ type MyConfig struct {
 	maxIndex  int
 	maxIndex0 int
 	applyErr  []string // from apply channel readers
+	raftclients map[int]map[int]*labrpc.Client
+	net	*labrpc.NetWork
 }
 
 func make_my_config(t *testing.T, n int) *MyConfig {
@@ -33,7 +35,7 @@ func make_my_config(t *testing.T, n int) *MyConfig {
 	cfg.logs = make([]map[int]interface{}, cfg.n)
 
 	for i := 0; i < n; i++ {
-		cfg.clients[i] = labrpc.MakeMyClient("Raft", 0, i, &labrpc.NetWork{false, false})
+		cfg.clients[i] = labrpc.MakeMyClient(i,labrpc.RaftName, 0, i, labrpc.MakeNet(false, false, n ))
 	}
 	for i := 0; i < n; i++ {
 		cfg.logs[i] = map[int]interface{}{}
@@ -48,7 +50,7 @@ func (cfg *MyConfig) start(i int) {
 	} else {
 		cfg.saved[i] = MakePersister()
 	}
-
+	cfg.raftclients[0*100+i] = labrpc.MakeGroupRaftClient(0,i, 0, cfg.n, cfg.net)
 	applyCh := make(chan ApplyMsg)
 	go func() {
 		for m := range applyCh {
@@ -85,7 +87,7 @@ func (cfg *MyConfig) start(i int) {
 			}
 		}
 	}()
-	rf := Make2(cfg.clients, i, cfg.saved[i], applyCh)
+	rf := Make2(cfg.raftclients, i,0, cfg.saved[i], applyCh)
 	cfg.rafts[i] = rf
 }
 

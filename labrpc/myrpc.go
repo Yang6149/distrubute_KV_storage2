@@ -7,9 +7,10 @@ import (
 	"strconv"
 	"time"
 )
-const(
+
+const (
 	RaftName = "Raft"
-	SerName = "Ser"
+	SerName  = "Ser"
 )
 
 type HelloService struct{}
@@ -55,19 +56,17 @@ type NetWork struct {
 	ServerState map[int]bool
 }
 
-
-
-func MakeMyClient(m int,name string, group int, i int, net *NetWork) *Client {
+func MakeMyClient(m int, name string, Targetgroup int, TargetI int, net *NetWork) *Client {
 	client := &Client{}
 	client.Me = m
-	client.Port = strconv.Itoa(30000 + group*100 + i)
-	client.Group = group
-	client.Num = i
-	client.ClusterName = name + strconv.Itoa(group*100+i)
+	client.Port = strconv.Itoa(30000 + Targetgroup*100 + TargetI)
+	client.Group = Targetgroup
+	client.Num = TargetI
+	client.ClusterName = name + strconv.Itoa(Targetgroup*100+TargetI)
 	client.net = net
 	return client
 }
-func MakeMySerClient(m int,name string, group int, i int, net *NetWork) *Client {
+func MakeMySerClient(m int, name string, group int, i int, net *NetWork) *Client {
 	client := &Client{}
 	client.Me = m
 	client.Port = strconv.Itoa(20000 + group*100 + i)
@@ -99,7 +98,7 @@ func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool 
 	}
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {
-		fmt.Print("错误" + err.Error() + "\n")
+		fmt.Printf("错误%v ,me is %d,target is %d\n",err.Error(),c.Me,c.Num+c.Group*100)
 	}
 	return true
 }
@@ -117,7 +116,7 @@ func MakeNet(Unreliable, Partitions bool, n int) *NetWork {
 	}
 	return net
 }
-func MakeAllNet(Unreliable, Partitions bool,nmaster ,ngroup ,n int) *NetWork {
+func MakeAllNet(Unreliable, Partitions bool, nmaster, ngroup, n int) *NetWork {
 	net := &NetWork{}
 	net.Unreliable = Unreliable
 	net.Partitions = Partitions
@@ -139,24 +138,44 @@ func MakeAllNet(Unreliable, Partitions bool,nmaster ,ngroup ,n int) *NetWork {
 		}
 	}
 
-
 	return net
 }
 
 //me+g 为自己，n为有几台机器
-func MakeGroupRaftClient(me, g int, n int,net *NetWork) map[int]*Client {
-	//
+func MakeGroupRaftClient(muGroup, me, g int, n int, net *NetWork) map[int]*Client {
+	//自己只能调用自己
+	fmt.Println("[MakeGroupRaftClient]",n)
 	m := make(map[int]*Client)
 	for i := 0; i < n; i++ {
-		m[i] =MakeMyClient(me+g*100,RaftName,g,i,net)
+		m[i+g*100] = MakeMyClient(me+muGroup*100, RaftName, g, i, net)
 	}
 	return m
 }
+
 //me+g 为目标
-func MakeGroupSerClient(me, g int, n int,net *NetWork) map[int]*Client {
+func MakeGroupSerClient(muGroup, me, g int, n int, net *NetWork) map[int]*Client {
 	m := make(map[int]*Client)
 	for i := 0; i < n; i++ {
-		m[i] =MakeMySerClient(me+g*100,SerName,g,i,net)
+		m[i+g*100] = MakeMySerClient(me+muGroup*100, SerName, g, i, net)
+	}
+	return m
+}
+func MakeGroupSerClientAll(muGroup, me, gNum int, n int, net *NetWork) map[int]*Client {
+	m := make(map[int]*Client)
+	for j := 1;j<=gNum;j++{
+		for i := 0; i < n; i++ {
+			m[i+j*100] = MakeMySerClient(me+muGroup*100, SerName, j, i, net)
+		}
+	}
+
+	return m
+}
+
+//me+g 为目标
+func MakeGroupSerClientAsList(muGroup, me, g int, n int, net *NetWork) []*Client {
+	m := make([]*Client, 0)
+	for i := 0; i < n; i++ {
+		m = append(m, MakeMySerClient(muGroup*100+me, SerName, g, i, net))
 	}
 	return m
 }

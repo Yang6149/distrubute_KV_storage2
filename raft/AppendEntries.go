@@ -146,13 +146,15 @@ func (rf *Raft) InstallSnapshots(args *InstallSnapshotsArgs, reply *InstallSnaps
 	rf.persist()
 }
 
+// server is g+i
 func (rf *Raft) sendInstallSnapshots(server int, args InstallSnapshotsArgs, reply *InstallSnapshotsReply) bool {
-	ok := rf.client[server].Call("InstallSnapshots", args, reply)
+	ok := rf.client[rf.MyId()][server+rf.g*100].Call("InstallSnapshots", args, reply)
 	return ok
 }
 
+// server is g+i
 func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
-	ok := rf.client[server].Call("AppendEntries", args, reply)
+	ok := rf.client[rf.MyId()][server+rf.g*100].Call("AppendEntries", args, reply)
 	return ok
 }
 

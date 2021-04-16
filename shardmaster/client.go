@@ -71,10 +71,15 @@ func (ck *Clerk) Join(servers map[int][]string) {
 		// try each known server.
 		srv := ck.servers[ck.leader]
 		var reply JoinReply
+		fmt.Println("try2")
 		ok := srv.Call("Join", args, &reply)
+		fmt.Println("try3")
+		fmt.Println(ok,reply)
+		fmt.Println(srv)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
+		fmt.Println("try4")
 		time.Sleep(100 * time.Millisecond)
 		ck.leader = (ck.leader + 1) % len(ck.servers)
 	}
@@ -120,3 +125,4 @@ func (ck *Clerk) Move(shard int, gid int) {
 		ck.leader = (ck.leader + 1) % len(ck.servers)
 	}
 }
+

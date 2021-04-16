@@ -59,8 +59,8 @@ func make_myconfig(t *testing.T, n int, maxraftstate int, unreliable bool, parti
 
 func (cfg *Myconfig) StartServer(i, g int) {
 
-	cfg.raftclients[g*100+i] = labrpc.MakeGroupRaftClient(i, g, cfg.n, cfg.net)
-	cfg.raftclients[g*100+i] = labrpc.MakeGroupSerClient(i, g, cfg.n, cfg.net)
+	cfg.raftclients[g*100+i] = labrpc.MakeGroupRaftClient(g,i, g, cfg.n, cfg.net)
+	cfg.raftclients[g*100+i] = labrpc.MakeGroupSerClient(g,i, g, cfg.n, cfg.net)
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()
 	} else {

@@ -130,13 +130,14 @@ func (cfg *config) makeClient() *Clerk {
 		cfg.net.Enable(endnames[j], true)
 	}
 
-	ck := MakeClerk(ends, func(servername string) *labrpc.ClientEnd {
-		name := randstring(20)
-		end := cfg.net.MakeEnd(name)
-		cfg.net.Connect(name, servername)
-		cfg.net.Enable(name, true)
-		return end
-	})
+	//ck := MakeClerk(ends, func(servername string) *labrpc.ClientEnd {
+	//	name := randstring(20)
+	//	end := cfg.net.MakeEnd(name)
+	//	cfg.net.Connect(name, servername)
+	//	cfg.net.Enable(name, true)
+	//	return end
+	//})
+	ck := &Clerk{}
 	cfg.clerks[ck] = endnames
 	cfg.nextClientId++
 	return ck
@@ -243,16 +244,16 @@ func (cfg *config) StartServer(gi int, i int) {
 		gg.saved[i] = raft.MakePersister()
 	}
 	cfg.mu.Unlock()
-
-	gg.servers[i] = StartServer(ends, i, gg.saved[i], cfg.maxraftstate,
-		gg.gid, mends,
-		func(servername string) *labrpc.ClientEnd {
-			name := randstring(20)
-			end := cfg.net.MakeEnd(name)
-			cfg.net.Connect(name, servername)
-			cfg.net.Enable(name, true)
-			return end
-		})
+	//
+	//gg.servers[i] = StartServer(ends, i, gg.saved[i], cfg.maxraftstate,
+	//	gg.gid, mends,
+	//	func(servername string) *labrpc.ClientEnd {
+	//		name := randstring(20)
+	//		end := cfg.net.MakeEnd(name)
+	//		cfg.net.Connect(name, servername)
+	//		cfg.net.Enable(name, true)
+	//		return end
+	//	})
 
 	kvsvc := labrpc.MakeService(gg.servers[i])
 	rfsvc := labrpc.MakeService(gg.servers[i].rf)

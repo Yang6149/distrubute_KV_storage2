@@ -12,7 +12,8 @@ func (rf *Raft) election() {
 	voteForMe := 0
 	voteForMe++
 	rf.voteFor = rf.me
-	for i := range rf.client {
+	for i := range rf.client[rf.MyId()] {
+		i = i%100
 		if rf.me == i {
 			continue
 		}

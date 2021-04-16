@@ -7,7 +7,7 @@ import (
 
 func TestMyBasic(t *testing.T) {
 	const nservers = 3
-	cfg := make_myconfig(t, nservers)
+	cfg := make_myconfig(t, nservers,false,false)
 	defer cfg.cleanup()
 
 	ck := cfg.makeClient()

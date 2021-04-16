@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"net"
+	"net/rpc"
 	"os"
 	"sync"
 	"sync/atomic"
@@ -46,6 +48,7 @@ func init() {
 	fmt.Println("123")
 	f, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
+		fmt.Println("?????????????????")
 		log.Fatalf("file open error : %v", err)
 	}
 	//defer f.Close()
@@ -89,9 +92,8 @@ type ShardKV struct {
 	me           int
 	rf           *raft.Raft
 	applyCh      chan raft.ApplyMsg
-	make_end     func(string) *labrpc.ClientEnd
 	gid          int
-	masters      []*labrpc.ClientEnd
+	masters      []*labrpc.Client
 	maxraftstate int // snapshot if log grows this big
 	sm           *shardmaster.Clerk
 	config       shardmaster.Config
@@ -99,6 +101,7 @@ type ShardKV struct {
 	dead          int32 // set by Kill()
 	apps          map[int]chan Op
 	appsforConfig map[int]chan shardmaster.Config
+	SerClient     map[int]map[int]*labrpc.Client
 	appsforShard  map[int]chan Shard
 	appsforGC     map[int]chan GC
 	shards        map[int]Shard
@@ -106,28 +109,30 @@ type ShardKV struct {
 	impleConfig       int
 	GCch              chan GC
 	lastIncludedIndex int
+	listener *net.Listener
 }
 
-func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
+func (kv *ShardKV) Get(args GetArgs, reply *GetReply) error{
 	// Your code here.
 	_, isLeader := kv.rf.GetState()
 	if isLeader {
 		op := Op{"Get", args.Key, "", args.ClientId, args.SerialId, ""}
 		reply.Value, reply.Err = kv.start(op)
 	}
+	return nil
 }
 
-func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
+func (kv *ShardKV) PutAppend(args PutAppendArgs, reply *PutAppendReply) error{
 	// Your code here.
 	_, isLeader := kv.rf.GetState()
 	if isLeader {
 		op := Op{args.Op, args.Key, args.Value, args.ClientId, args.SerialId, ""}
 		_, Err := kv.start(op)
 		reply.Err = Err
-		return
+		return nil
 	} else {
 		reply.Err = ErrWrongLeader
-		return
+		return nil
 	}
 }
 
@@ -228,7 +233,7 @@ func (kv *ShardKV) killed() bool {
 // StartServer() must return quickly, so it should start goroutines
 // for any long-running work.
 //
-func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister, maxraftstate int, gid int, masters []*labrpc.ClientEnd, make_end func(string) *labrpc.ClientEnd) *ShardKV {
+func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]map[int]*labrpc.Client, master []*labrpc.Client, me int, persister *raft.Persister, maxraftstate int, g int) *ShardKV {
 	// call labgob.Register on structures you want
 	// Go's RPC library to marshall/unmarshall.
 	labgob.Register(Op{})
@@ -236,18 +241,40 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 	kv := new(ShardKV)
 	kv.me = me
 	kv.maxraftstate = maxraftstate
-	kv.make_end = make_end
-	kv.gid = gid
-	kv.masters = masters
+	kv.gid = g
+	kv.masters = master
+	kv.SerClient = svrclients
 
 	// Your initialization code here.
 
 	// Use something like this to talk to the shardmaster:
 	// kv.mck = shardmaster.MakeClerk(kv.masters)
 	kv.sm = shardmaster.MakeClerk(kv.masters)
+	go func() {
+		fmt.Println("*****************",me+g*100)
+		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, kv)
+		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
+		kv.listener = &listener
+		fmt.Printf("shardkv serverName := %s \t listener := %s %d ,%d \n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port,kv.gid,kv.me)
+
+		if err != nil {
+			log.Fatal("ListenTCP error:", err)
+		}
+		for {
+			conn, err := listener.Accept()
+			if kv.killed() {
+				return
+			}
+			if err != nil {
+				log.Fatal("Accept error:", err)
+			}
+
+			go rpc.ServeConn(conn)
+		}
+	}()
 
 	kv.applyCh = make(chan raft.ApplyMsg)
-	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
+	kv.rf = raft.Make2(raftclients, me, g, persister, kv.applyCh)
 
 	kv.apps = make(map[int]chan Op)
 	kv.appsforConfig = make(map[int]chan shardmaster.Config)
@@ -598,17 +625,17 @@ func (kv *ShardKV) check_same_config(c1 shardmaster.Config, c2 shardmaster.Confi
 	return true
 }
 
-func (kv *ShardKV) sendMigrateArgs(cli *labrpc.ClientEnd, args *MigrateArgs, reply *MigrateReply) bool {
-	ok := cli.Call("ShardKV.MigrateReply", args, reply)
+func (kv *ShardKV) sendMigrateArgs(cli *labrpc.Client, args MigrateArgs, reply *MigrateReply) bool {
+	ok := cli.Call("MigrateReply", args, reply)
 	return ok
 }
 
-func (kv *ShardKV) MigrateReply(args *MigrateArgs, reply *MigrateReply) {
+func (kv *ShardKV) MigrateReply(args MigrateArgs, reply *MigrateReply) error{
 	_, isLeader := kv.rf.GetState()
 	if !isLeader {
 		EPrintf("%d %d 返回reply wrong leader", kv.gid, kv.me)
 		reply.Err = ErrWrongLeader
-		return
+		return nil
 	}
 	EPrintf("%d %d 返回", kv.gid, kv.me)
 	kv.mu.Lock()
@@ -616,13 +643,13 @@ func (kv *ShardKV) MigrateReply(args *MigrateArgs, reply *MigrateReply) {
 	if args.ConfigNum < kv.config.Num {
 		reply.Err = OK
 		defer kv.mu.Unlock()
-		return
+		return nil
 	}
 	if shard, ok := kv.shards[args.Shard.Id]; ok && shard.Version == args.Shard.Version {
 		//已经拥有该shard ，判断重复直接返回确认。
 		reply.Err = OK
 		defer kv.mu.Unlock()
-		return
+		return nil
 	}
 	if args.Shard.Data == nil {
 		kv.DPrintf("poipoipoipoipoipoippoipoipoi")
@@ -641,11 +668,11 @@ func (kv *ShardKV) MigrateReply(args *MigrateArgs, reply *MigrateReply) {
 	case shard := <-ch:
 		kv.DPrintf("%d %d 接受到 来自 %d 的shard %d", kv.gid, kv.me, args.Gid, shard)
 		reply.Err = OK
-		return
+		return nil
 	case <-time.After(200 * time.Millisecond):
 		reply.Err = ErrTimeOut
 		kv.DPrintf("%d %d rep-migrate %d 的shard %d,is timeout", kv.gid, kv.me, args.Gid, args.Shard)
-		return
+		return nil
 	}
 }
 
@@ -670,7 +697,7 @@ func (kv *ShardKV) sendMigration(gid int, shard int, shardGCVersion int) {
 func (kv *ShardKV) sendMigrationForOne(gid int, shard int, shardGCVersion int, si int, servers []string) {
 	kv.mu.Lock()
 	//kv.DPrintf("%d %d 获得锁", kv.gid, kv.me)
-	srv := kv.make_end(servers[si])
+	srv := kv.SerClient[kv.gid*100+kv.me][gid*100+si]
 	var args MigrateArgs
 	args.Shard = kv.copyOfShard(shard)
 	//判断是否取到了空值，代表已经发送过了，并且gc掉，所以这里判重
@@ -692,7 +719,7 @@ func (kv *ShardKV) sendMigrationForOne(gid int, shard int, shardGCVersion int, s
 	done := make(chan bool, 1)
 	kv.DPrintf("%d %d 发送srv= %d migrate 前-> %d %d", kv.gid, kv.me, srv, gid, shard)
 	go func() {
-		ok := kv.sendMigrateArgs(srv, &args, &reply)
+		ok := kv.sendMigrateArgs(srv, args, &reply)
 		kv.DPrintf("%d %d 发送srv= %d migrate 完-> %d %d，ok=%d", kv.gid, kv.me, srv, gid, shard, ok)
 		done <- ok
 	}()

@@ -49,6 +49,9 @@ type Clerk struct {
 
 	// You will have to modify this struct.
 }
+func (ck *Clerk) SetMe(me int64) {
+	ck.me = me
+}
 
 //
 // the tester calls MakeClerk.

@@ -54,7 +54,7 @@ type group struct {
 	mendnames [][]string
 }
 
-type config struct {
+type Config struct {
 	mu    sync.Mutex
 	t     *testing.T
 	net   *labrpc.Network
@@ -73,14 +73,31 @@ type config struct {
 	maxraftstate int
 }
 
-func (cfg *config) checkTimeout() {
+func (cfg *Config) GetAllInfo(){
+	str := make([]string,0)
+	str = append(str,"****************************shardMasterInfo************************")
+	str = append(str,fmt.Sprintf("id\t\tisLeader\t\tisConnect"))
+	for i := 0;i<len(cfg.masterservers);i++{
+		_,isLeader:=cfg.masterservers[i].Raft().GetState()
+		str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t",i,isLeader,true))
+	}
+	for i := 0;i<len(cfg.groups);i++{
+		str = append(str,"****************************GroupInfo"+strconv.Itoa(i)+"************************")
+		for j := 0;i<cfg.n;j++{
+			_,isLeader:=cfg.groups[i].servers[j].Raft().GetState()
+			str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t",i,isLeader,true))
+		}
+	}
+}
+
+func (cfg *Config) checkTimeout() {
 	// enforce a two minute real-time limit on each test
 	if !cfg.t.Failed() && time.Since(cfg.start) > 120*time.Second {
 		cfg.t.Fatal("test took longer than 120 seconds")
 	}
 }
 
-func (cfg *config) cleanup() {
+func (cfg *Config) Cleanup() {
 	for gi := 0; gi < cfg.ngroups; gi++ {
 		cfg.ShutdownGroup(gi)
 	}
@@ -89,7 +106,7 @@ func (cfg *config) cleanup() {
 }
 
 // check that no server's log is too big.
-func (cfg *config) checklogs() {
+func (cfg *Config) checklogs() {
 	for gi := 0; gi < cfg.ngroups; gi++ {
 		for i := 0; i < cfg.n; i++ {
 			raft := cfg.groups[gi].saved[i].RaftStateSize()
@@ -106,17 +123,19 @@ func (cfg *config) checklogs() {
 }
 
 // master server name for labrpc.
-func (cfg *config) mastername(i int) string {
+func (cfg *Config) mastername(i int) string {
 	return "master" + strconv.Itoa(i)
 }
 
 // shard server name for labrpc.
 // i'th server of group gid.
-func (cfg *config) servername(gid int, i int) string {
+func (cfg *Config) servername(gid int, i int) string {
 	return "server-" + strconv.Itoa(gid) + "-" + strconv.Itoa(i)
 }
-
-func (cfg *config) makeClient() *Clerk {
+func (cfg *Config) MakeClient() *Clerk{
+	return cfg.makeClient()
+}
+func (cfg *Config) makeClient() *Clerk {
 	cfg.mu.Lock()
 	defer cfg.mu.Unlock()
 
@@ -142,7 +161,7 @@ func (cfg *config) makeClient() *Clerk {
 	return ck
 }
 
-func (cfg *config) deleteClient(ck *Clerk) {
+func (cfg *Config) deleteClient(ck *Clerk) {
 	cfg.mu.Lock()
 	defer cfg.mu.Unlock()
 
@@ -154,7 +173,7 @@ func (cfg *config) deleteClient(ck *Clerk) {
 }
 
 // Shutdown i'th server of gi'th group, by isolating it
-func (cfg *config) ShutdownServer(gi int, i int) {
+func (cfg *Config) ShutdownServer(gi int, i int) {
 	cfg.mu.Lock()
 	defer cfg.mu.Unlock()
 
@@ -195,14 +214,14 @@ func (cfg *config) ShutdownServer(gi int, i int) {
 	}
 }
 
-func (cfg *config) ShutdownGroup(gi int) {
+func (cfg *Config) ShutdownGroup(gi int) {
 	for i := 0; i < cfg.n; i++ {
 		cfg.ShutdownServer(gi, i)
 	}
 }
 
 // start i'th server in gi'th group
-func (cfg *config) StartServer(gi int, i int) {
+func (cfg *Config) StartServer(gi int, i int) {
 	cfg.mu.Lock()
 
 	gg := cfg.groups[gi]
@@ -262,13 +281,13 @@ func (cfg *config) StartServer(gi int, i int) {
 	cfg.net.AddServer(cfg.servername(gg.gid, i), srv)
 }
 
-func (cfg *config) StartGroup(gi int) {
+func (cfg *Config) StartGroup(gi int) {
 	for i := 0; i < cfg.n; i++ {
 		cfg.StartServer(gi, i)
 	}
 }
 
-func (cfg *config) StartMasterServer(i int) {
+func (cfg *Config) StartMasterServer(i int) {
 	// ClientEnds to talk to other master replicas.
 	ends := make([]*labrpc.ClientEnd, cfg.nmasters)
 	for j := 0; j < cfg.nmasters; j++ {
@@ -290,7 +309,7 @@ func (cfg *config) StartMasterServer(i int) {
 	cfg.net.AddServer(cfg.mastername(i), srv)
 }
 
-func (cfg *config) shardclerk() *shardmaster.Clerk {
+func (cfg *Config) shardclerk() *shardmaster.Clerk {
 	// ClientEnds to talk to master service.
 	ends := make([]*labrpc.ClientEnd, cfg.nmasters)
 	for j := 0; j < cfg.nmasters; j++ {
@@ -304,11 +323,18 @@ func (cfg *config) shardclerk() *shardmaster.Clerk {
 }
 
 // tell the shardmaster that a group is joining.
-func (cfg *config) join(gi int) {
+
+func (cfg *Config) Join(gi int) {
+	cfg.joinm([]int{gi})
+}
+func (cfg *Config) Joinm(gis []int) {
+	cfg.joinm(gis)
+}
+func (cfg *Config) join(gi int) {
 	cfg.joinm([]int{gi})
 }
 
-func (cfg *config) joinm(gis []int) {
+func (cfg *Config) joinm(gis []int) {
 	m := make(map[int][]string, len(gis))
 	for _, g := range gis {
 		gid := cfg.groups[g].gid
@@ -322,11 +348,11 @@ func (cfg *config) joinm(gis []int) {
 }
 
 // tell the shardmaster that a group is leaving.
-func (cfg *config) leave(gi int) {
+func (cfg *Config) leave(gi int) {
 	cfg.leavem([]int{gi})
 }
 
-func (cfg *config) leavem(gis []int) {
+func (cfg *Config) leavem(gis []int) {
 	gids := make([]int, 0, len(gis))
 	for _, g := range gis {
 		gids = append(gids, cfg.groups[g].gid)
@@ -336,7 +362,7 @@ func (cfg *config) leavem(gis []int) {
 
 var ncpu_once sync.Once
 
-func make_config(t *testing.T, n int, unreliable bool, maxraftstate int) *config {
+func Make_config(t *testing.T, n int, unreliable bool, maxraftstate int) *Config {
 	ncpu_once.Do(func() {
 		if runtime.NumCPU() < 2 {
 			fmt.Printf("warning: only one CPU, which may conceal locking bugs\n")
@@ -344,7 +370,7 @@ func make_config(t *testing.T, n int, unreliable bool, maxraftstate int) *config
 		rand.Seed(makeSeed())
 	})
 	runtime.GOMAXPROCS(4)
-	cfg := &config{}
+	cfg := &Config{}
 	cfg.t = t
 	cfg.maxraftstate = maxraftstate
 	cfg.net = labrpc.MakeNetwork()

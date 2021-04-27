@@ -3,7 +3,6 @@ package shardkv
 // import "../shardmaster"
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -43,7 +42,6 @@ func EPrintf(format string, a ...interface{}) (n int, err error) {
 }
 func init() {
 	begin = time.Now().UnixNano()
-	fmt.Println("123")
 	f, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("file open error : %v", err)
@@ -106,6 +104,9 @@ type ShardKV struct {
 	impleConfig       int
 	GCch              chan GC
 	lastIncludedIndex int
+}
+func (kv *ShardKV) Raft() *raft.Raft{
+	return kv.rf
 }
 
 func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {

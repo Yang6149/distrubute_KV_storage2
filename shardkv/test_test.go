@@ -31,8 +31,8 @@ func check(t *testing.T, ck *Clerk, key string, value string) {
 func TestStaticShards(t *testing.T) {
 	fmt.Printf("Test: static shards ...\n")
 
-	cfg := make_config(t, 3, false, -1)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, -1)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -105,11 +105,13 @@ func TestStaticShards(t *testing.T) {
 	fmt.Printf("  ... Passed\n")
 }
 
+
+
 func TestJoinLeave(t *testing.T) {
 	fmt.Printf("Test: join then leave ...\n")
 
-	cfg := make_config(t, 3, false, -1)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, -1)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -171,8 +173,8 @@ func TestSnapshot(t *testing.T) {
 
 	fmt.Printf("Test: snapshots, join, and leave ...\n")
 
-	cfg := make_config(t, 3, false, 1000)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, 1000)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -245,8 +247,8 @@ func TestSnapshot(t *testing.T) {
 func TestMissChange(t *testing.T) {
 	fmt.Printf("Test: servers miss configuration changes...\n")
 	//begin := time.Now().UnixNano()
-	cfg := make_config(t, 3, false, 1000)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, 1000)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 	//fmt.Println("mkClient", timey(begin))
@@ -341,8 +343,8 @@ func TestMissChange(t *testing.T) {
 func TestConcurrent1(t *testing.T) {
 	fmt.Printf("Test: concurrent puts and configuration changes...\n")
 
-	cfg := make_config(t, 3, false, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, 100)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -422,8 +424,8 @@ func TestConcurrent1(t *testing.T) {
 func TestConcurrent2(t *testing.T) {
 	fmt.Printf("Test: more concurrent puts and configuration changes...\n")
 
-	cfg := make_config(t, 3, false, -1)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, -1)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -493,8 +495,8 @@ func TestConcurrent2(t *testing.T) {
 func TestUnreliable1(t *testing.T) {
 	fmt.Printf("Test: unreliable 1...\n")
 
-	cfg := make_config(t, 3, true, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, true, 100)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -535,8 +537,8 @@ func TestUnreliable1(t *testing.T) {
 func TestUnreliable2(t *testing.T) {
 	fmt.Printf("Test: unreliable 2...\n")
 
-	cfg := make_config(t, 3, true, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, true, 100)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -598,8 +600,8 @@ func TestUnreliable2(t *testing.T) {
 func TestUnreliable3(t *testing.T) {
 	fmt.Printf("Test: unreliable 3...\n")
 
-	cfg := make_config(t, 3, true, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, true, 100)
+	defer cfg.Cleanup()
 
 	begin := time.Now()
 	var operations []porcupine.Operation
@@ -708,8 +710,8 @@ func TestChallenge1Delete(t *testing.T) {
 	fmt.Printf("Test: shard deletion (challenge 1) ...\n")
 
 	// "1" means force snapshot after every log entry.
-	cfg := make_config(t, 3, false, 1)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, 1)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -788,8 +790,8 @@ func TestChallenge1Delete(t *testing.T) {
 func TestChallenge1Concurrent(t *testing.T) {
 	fmt.Printf("Test: concurrent configuration change and restart (challenge 1)...\n")
 
-	cfg := make_config(t, 3, false, 300)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, false, 300)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -861,8 +863,8 @@ func TestChallenge1Concurrent(t *testing.T) {
 func TestChallenge2Unaffected(t *testing.T) {
 	fmt.Printf("Test: unaffected shard access (challenge 2) ...\n")
 
-	cfg := make_config(t, 3, true, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, true, 100)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 
@@ -931,8 +933,8 @@ func TestChallenge2Unaffected(t *testing.T) {
 func TestChallenge2Partial(t *testing.T) {
 	fmt.Printf("Test: partial migration shard access (challenge 2) ...\n")
 
-	cfg := make_config(t, 3, true, 100)
-	defer cfg.cleanup()
+	cfg := Make_config(t, 3, true, 100)
+	defer cfg.Cleanup()
 
 	ck := cfg.makeClient()
 

@@ -357,6 +357,12 @@ func (rn *Network) Enable(endname interface{}, enabled bool) {
 
 	rn.enabled[endname] = enabled
 }
+func (rn *Network) GetEnable(endname interface{}) bool{
+	rn.mu.Lock()
+	defer rn.mu.Unlock()
+
+	return rn.enabled[endname]
+}
 
 // get a server's count of incoming RPCs.
 func (rn *Network) GetCount(servername interface{}) int {

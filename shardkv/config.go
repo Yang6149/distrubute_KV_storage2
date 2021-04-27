@@ -71,23 +71,34 @@ type Config struct {
 	clerks       map[*Clerk][]string
 	nextClientId int
 	maxraftstate int
+	groupState map[int]bool
 }
 
-func (cfg *Config) GetAllInfo(){
+func (cfg *Config) GetAllInfo()string{
+
 	str := make([]string,0)
-	str = append(str,"****************************shardMasterInfo************************")
-	str = append(str,fmt.Sprintf("id\t\tisLeader\t\tisConnect"))
+	str = append(str,"****************************shardMasterInfo************************\n")
+	str = append(str,fmt.Sprintf("id\t\tisLeader\tisConnect\n"))
 	for i := 0;i<len(cfg.masterservers);i++{
 		_,isLeader:=cfg.masterservers[i].Raft().GetState()
-		str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t",i,isLeader,true))
+		str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t\n",i,isLeader,true))
 	}
 	for i := 0;i<len(cfg.groups);i++{
-		str = append(str,"****************************GroupInfo"+strconv.Itoa(i)+"************************")
-		for j := 0;i<cfg.n;j++{
+		if !cfg.groupState[i]{
+			continue
+		}
+		str = append(str,"****************************GroupInfo"+strconv.Itoa(i)+"************************\n")
+		str = append(str,fmt.Sprintf("id\t\tisLeader\tisConnect\n"))
+		for j := 0;j<cfg.n;j++{
 			_,isLeader:=cfg.groups[i].servers[j].Raft().GetState()
-			str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t",i,isLeader,true))
+			str = append(str,fmt.Sprintf("%d\t\t%t\t\t%t\n",j,isLeader,cfg.net.GetEnable(cfg.groups[i].endnames[j][0])))
 		}
 	}
+	res := ""
+	for s := range str{
+		res += str[s]
+	}
+	return res
 }
 
 func (cfg *Config) checkTimeout() {
@@ -219,6 +230,27 @@ func (cfg *Config) ShutdownGroup(gi int) {
 		cfg.ShutdownServer(gi, i)
 	}
 }
+func (cfg *Config) DisConnect(gi int, i int) {
+	gg := cfg.groups[gi]
+	for j := 0; j < cfg.n; j++ {
+		cfg.net.Enable(gg.endnames[i][j], false)
+	}
+	for j := 0; j < cfg.nmasters; j++ {
+		cfg.net.Enable(gg.mendnames[i][j], false)
+	}
+	fmt.Println(gi,i,"connect is ",cfg.net.GetEnable(cfg.groups[gi].endnames[i][0]))
+
+
+}
+func (cfg *Config) Connect(gi int, i int) {
+	gg := cfg.groups[gi]
+	for j := 0; j < cfg.n; j++ {
+		cfg.net.Enable(gg.endnames[i][j], true)
+	}
+	for j := 0; j < cfg.nmasters; j++ {
+		cfg.net.Enable(gg.mendnames[i][j], true)
+	}
+}
 
 // start i'th server in gi'th group
 func (cfg *Config) StartServer(gi int, i int) {
@@ -337,6 +369,7 @@ func (cfg *Config) join(gi int) {
 func (cfg *Config) joinm(gis []int) {
 	m := make(map[int][]string, len(gis))
 	for _, g := range gis {
+		cfg.groupState[g] = true
 		gid := cfg.groups[g].gid
 		servernames := make([]string, cfg.n)
 		for i := 0; i < cfg.n; i++ {
@@ -347,6 +380,12 @@ func (cfg *Config) joinm(gis []int) {
 	cfg.mck.Join(m)
 }
 
+func (cfg *Config) Leave(gi int){
+	cfg.leavem([]int{gi})
+}
+func (cfg *Config) Leavem(gis []int) {
+	cfg.leavem(gis)
+}
 // tell the shardmaster that a group is leaving.
 func (cfg *Config) leave(gi int) {
 	cfg.leavem([]int{gi})
@@ -355,6 +394,7 @@ func (cfg *Config) leave(gi int) {
 func (cfg *Config) leavem(gis []int) {
 	gids := make([]int, 0, len(gis))
 	for _, g := range gis {
+		cfg.groupState[g] = false
 		gids = append(gids, cfg.groups[g].gid)
 	}
 	cfg.mck.Leave(gids)
@@ -385,6 +425,7 @@ func Make_config(t *testing.T, n int, unreliable bool, maxraftstate int) *Config
 	cfg.mck = cfg.shardclerk()
 
 	cfg.ngroups = 3
+	cfg.groupState = make(map[int]bool)
 	cfg.groups = make([]*group, cfg.ngroups)
 	cfg.n = n
 	for gi := 0; gi < cfg.ngroups; gi++ {

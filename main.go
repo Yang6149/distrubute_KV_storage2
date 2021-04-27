@@ -85,38 +85,103 @@ func main(){
 			text = strings.Replace(text, "\r", "", -1)
 			commends := strings.Split(text," ")
 			commend := commends[0]
-			fmt.Printf("len := %d\n",len(commends))
 			switch commend{
 			case "Get":
 				if len(commends)!=2{
 					fmt.Println("Get need 1 argument Key")
+					continue
 				}
 				client.Get(commends[1])
 			case "get":
 				if len(commends)!=2{
 					fmt.Println("Get need 1 argument Key")
+					continue
 				}
 				client.Get(commends[1])
 			case "Put":
 				if len(commends)!=3{
 					fmt.Println("Put need 2 argument Key")
+					continue
 				}
 				client.Put(commends[1],commends[2])
 			case "put":
 				if len(commends)!=3{
 					fmt.Println("Put need 2 argument Key")
+					continue
 				}
 				client.Put(commends[1],commends[2])
 			case "Append":
 				if len(commends)!=3{
 					fmt.Println("Append need 2 argument Key")
+					continue
 				}
 				client.Append(commends[1],commends[2])
 			case "append":
 				if len(commends)!=3{
 					fmt.Println("Append need 2 argument Key")
+					continue
 				}
 				client.Append(commends[1],commends[2])
+			case "info":
+				if len(commends)!=1{
+					fmt.Println("info need 1 argument Key")
+					continue
+				}
+				client.GetInfo()
+			case "join":
+				if len(commends)!=2{
+					fmt.Println("info need 2 argument Key")
+					continue
+				}
+				int, err := strconv.Atoi(commends[1])
+				if err!=nil{
+					fmt.Println("输出请为0-2的数字")
+					continue
+				}
+				client.Join(int)
+			case "leave":
+				if len(commends)!=2{
+					fmt.Println("info need 2 argument Key")
+					continue
+				}
+				int, err := strconv.Atoi(commends[1])
+				if err!=nil{
+					fmt.Println("输出请为0-2的数字")
+					continue
+				}
+				client.Leave(int)
+			case "con":
+				if len(commends)!=3{
+					fmt.Println("info need 3 argument Key")
+					continue
+				}
+				g, err := strconv.Atoi(commends[1])
+				if err!=nil{
+					fmt.Println("输出请为数字")
+					continue
+				}
+				i, err := strconv.Atoi(commends[2])
+				if err!=nil{
+					fmt.Println("输出请为数字")
+					continue
+				}
+				client.Connect(g,i)
+			case "discon":
+				if len(commends)!=3{
+					fmt.Println("info need 3 argument Key")
+					continue
+				}
+				g, err := strconv.Atoi(commends[1])
+				if err!=nil{
+					fmt.Println("输出请为数字")
+					continue
+				}
+				i, err := strconv.Atoi(commends[2])
+				if err!=nil{
+					fmt.Println("输出请为数字")
+					continue
+				}
+				client.DisConnect(g,i)
 			}
 
 		}

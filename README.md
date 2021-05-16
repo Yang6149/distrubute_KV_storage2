@@ -2,10 +2,14 @@ group 0,1,2
 
 
 
-keyNum
-Term
-indexLen
-name
+command
+put key val
+get key val
+info
+discon 0|1|2(group) 0|1|2(num)
+con 0|1|2 0|1|2
+leave 0|1|2
+join 0|1|2
 
 {"MasterNum":3,"GroupNum":3,"Num":3,"IsMasterLeader":{"0":false,"1":true,"2":false},"IsLeader":{"0":{"0":false,"1":true,"2":false},"1":{"0":true,"1":false,"2":false},"2":{"0":false,"1":true,"2":false}},"IsMasterConnect":{"0":true,"1":true,"2":true},"IsConnect":{"0":{"0":true,"1":true,"2":true},"1":{"0":true,"1":true,"2":true},"2":{"0":true,"1":true,"2":true}},"MasterTerm":{"0":2,"1":2,"2":2},"Term":{"0":{"0":3,"1":3,"2":3},"1":{"0":2,"1":2,"2":2},"2":{"0":2,"1":2,"2":2}}}
 

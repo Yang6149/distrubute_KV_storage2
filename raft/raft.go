@@ -79,7 +79,9 @@ type Raft struct {
 	lastIncludedIndex int
 	lastIncludedTerm  int
 }
-
+func (rf *Raft) GetlogLen() int{
+	return rf.logLen()
+}
 // GetState get command .
 // return currentTerm and whether this server
 // believes it is the leader.

@@ -108,6 +108,16 @@ type ShardKV struct {
 func (kv *ShardKV) Raft() *raft.Raft{
 	return kv.rf
 }
+func (kv *ShardKV) GetShardNum() int{
+	return len(kv.shards)
+}
+func (kv *ShardKV) GetKeyNum() int{
+	num := 0
+	for i := range kv.shards{
+		num+=len(kv.shards[i].Data)
+	}
+	return num
+}
 
 func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.

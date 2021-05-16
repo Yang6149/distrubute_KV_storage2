@@ -17,6 +17,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
+	"encoding/json"
 
 	"distrubute_KV_storage/raft"
 )
@@ -99,6 +100,92 @@ func (cfg *Config) GetAllInfo()string{
 		res += str[s]
 	}
 	return res
+}
+
+type basicInfo struct{
+	MasterNum int
+	GroupNum int
+	Num int
+	IsMasterLeader map[int]bool
+	IsLeader map[int]map[int]bool
+	IsMasterConnect map[int]bool
+	IsConnect map[int]map[int]bool
+	MasterTerm map[int]int
+	Term map[int]map[int]int
+
+}
+func (cfg *Config) GetAllInfoHttp()string{
+
+
+	res1 := basicInfo{
+		MasterNum : len(cfg.masterservers),
+		GroupNum : len(cfg.groups),
+		Num : cfg.n,
+		IsMasterLeader : make(map[int]bool),
+		IsLeader : make(map[int]map[int]bool),
+		IsMasterConnect : make(map[int]bool),
+		IsConnect : make(map[int]map[int]bool),
+		MasterTerm : make(map[int]int),
+		Term : make(map[int]map[int]int),
+	}
+	for i := 0;i<len(cfg.masterservers);i++{
+		term,isLeader:=cfg.masterservers[i].Raft().GetState()
+		res1.IsMasterLeader[i] = isLeader
+		res1.IsMasterConnect[i] = true
+		res1.MasterTerm[i] = term
+	}
+	for i := 0;i<len(cfg.groups);i++{
+		res1.IsLeader[i] = make(map[int]bool)
+		res1.IsConnect[i] = make(map[int]bool)
+		res1.Term[i] = make(map[int]int)
+		for j := 0;j<cfg.n;j++{
+
+			term,isLeader:=cfg.groups[i].servers[j].Raft().GetState()
+			res1.IsLeader[i][j] = isLeader
+			res1.IsConnect[i][j] = cfg.net.GetEnable(cfg.groups[i].endnames[j][0])
+			res1.Term[i][j] = term
+		}
+	}
+	jsons, errs := json.Marshal(res1) //转换成JSON返回的是byte[]
+	if errs != nil {
+	  fmt.Println(errs.Error())
+	}
+	return string(jsons)
+}
+// type Config struct {
+// 	Num    int              // config 版本号
+// 	Shards [NShards]int     // shard -> gid
+// 	Groups map[int][]string // gid -> servers[]
+// }
+type masterInfo struct{
+	Config shardmaster.Config
+}
+func (cfg *Config) GetMasterInfo(n int)string{
+	info := masterInfo{}
+	info.Config = cfg.masterservers[n].GetNewConfig()
+	jsons, errs := json.Marshal(info) //转换成JSON返回的是byte[]
+	if errs != nil {
+	  fmt.Println(errs.Error())
+	}
+	return string(jsons)
+}
+type entityInfo struct{
+	// Config shardmaster.Config
+	ShardNum int
+	KeyNum int
+	IndexLen int
+}
+func (cfg *Config) GetInfo(g,n int)string{
+	info := entityInfo{}
+	kv := cfg.groups[g].servers[n]
+	info.IndexLen = kv.Raft().GetlogLen()
+	info.ShardNum = kv.GetShardNum()
+	info.KeyNum = kv.GetKeyNum()
+	jsons, errs := json.Marshal(info) //转换成JSON返回的是byte[]
+	if errs != nil {
+	  fmt.Println(errs.Error())
+	}
+	return string(jsons)
 }
 
 func (cfg *Config) checkTimeout() {

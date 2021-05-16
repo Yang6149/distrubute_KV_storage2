@@ -4,6 +4,7 @@ import (
 	"bufio"
 	cli2 "distrubute_KV_storage/cli"
 	"distrubute_KV_storage/shardkv"
+	"distrubute_KV_storage/http"
 	"flag"
 	"fmt"
 	"log"
@@ -64,6 +65,7 @@ func main(){
 				go rpc.ServeConn(conn)
 			}
 		}()
+		go http.StartServer(config)
 		defer config.Cleanup()
 		for {}
 	}

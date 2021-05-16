@@ -48,6 +48,11 @@ type Op struct {
 	Config   Config
 }
 
+func (sm *ShardMaster) GetNewConfig() Config{
+	return sm.configs[len(sm.configs)-1]
+}
+
+
 func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 	if _, isLeader := sm.rf.GetState(); !isLeader {
 		reply.WrongLeader = true

@@ -23,7 +23,7 @@ resp
 {"Config":{"Num":1,"Shards":[100,100,100,100,101,101,101,102,102,102],"Groups":{"100":["server-100-0","server-100-1","server-100-2"],"101":["server-101-0","server-101-1","server-101-2"],"102":["server-102-0","server-102-1","server-102-2"]}}}
 
 
-post /GetMasterInfo
+post /GetEntityInfo
 req
 {
     "n":0,
@@ -31,4 +31,16 @@ req
 }
 resp
 {"ShardNum":4,"KeyNum":0,"IndexLen":2}
+
+
+for i range 10000000:
+    val = []
+    for j in rafts:
+        if j is leader:
+            j.start(i)
+            val.append(i)
+    random rafts.disconnect 
+    random tafts.sleep
+    random rafts.restart
+compare val rafts.log
 

@@ -142,7 +142,12 @@ func (cfg *Config) GetAllInfoHttp()string{
 
 			term,isLeader:=cfg.groups[i].servers[j].Raft().GetState()
 			res1.IsLeader[i][j] = isLeader
-			res1.IsConnect[i][j] = cfg.net.GetEnable(cfg.groups[i].endnames[j][0])
+			if !cfg.groupState[i]{
+				res1.IsConnect[i][j] = false
+			}else{
+				res1.IsConnect[i][j] = cfg.net.GetEnable(cfg.groups[i].endnames[j][0])
+			}
+			
 			res1.Term[i][j] = term
 		}
 	}

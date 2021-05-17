@@ -33,7 +33,7 @@ func StartServer(config *shardkv.Config){
     })
 
 
-    fmt.Printf("Starting server at port 8080\n")
+    fmt.Printf("Starting server at port 8081\n")
     if err := http.ListenAndServe(":8080", nil); err != nil {
         log.Fatal(err)
     }

@@ -57,12 +57,13 @@ func main() {
 	fmt.Println("isClient", c.IsClient)
 	if c.IsMasterClient {
 		client := shardkv.MakeClerk(clients)
-		// clerk := shardmaster.MakeClerk(clients)
 
-		// clerk.EasyJoin(1)
-		// clerk.EasyJoin(2)
-		// clerk.EasyJoin(3)
-		// fmt.Print(clerk.Query(-1))
+		clerk := shardmaster.MakeClerk(clients)
+
+		clerk.EasyJoin(1)
+		clerk.EasyJoin(2)
+		clerk.EasyJoin(3)
+		fmt.Print(clerk.Query(-1))
 
 		for i := 0; i < 10; i++ {
 			client.Put(strconv.Itoa(i), strconv.Itoa(i))

@@ -70,7 +70,9 @@ func MakeTrueClient(ip string, port int, name string, myself string) *TrueClient
 
 func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) bool {
 	for c.client == nil {
+		fmt.Println("开始建立连接")
 		client, err := rpc.Dial("tcp", c.IP+":"+strconv.Itoa(c.Port))
+		fmt.Println("建立完成")
 		if err != nil {
 			fmt.Println(c, svcMeth)
 			fmt.Println("dialing:", err)

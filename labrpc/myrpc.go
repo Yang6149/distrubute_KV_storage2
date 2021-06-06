@@ -1,10 +1,11 @@
 package labrpc
 
 import (
+	"distrubute_KV_storage/tool"
 	"fmt"
-	"math/rand"
 	"net/rpc"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -40,14 +41,12 @@ func RegisterHelloService(svc HelloServiceInterface, serName string) error {
 
 //***************************************
 
-type Client struct {
-	Me          int    //代表自己单独Client
-	ClusterName string //集群名字
-	Port        string //端口
-	Num         int    //第几号机器
-	Group       int
+type TrueClient struct {
+	myIp        string
+	IP          string
+	Port        int
+	ClusterName string
 	client      *rpc.Client //client
-	net         *NetWork
 }
 type NetWork struct {
 	Unreliable  bool
@@ -56,49 +55,34 @@ type NetWork struct {
 	ServerState map[int]bool
 }
 
-func MakeMyClient(m int, name string, Targetgroup int, TargetI int, net *NetWork) *Client {
-	client := &Client{}
-	client.Me = m
-	client.Port = strconv.Itoa(30000 + Targetgroup*100 + TargetI)
-	client.Group = Targetgroup
-	client.Num = TargetI
-	client.ClusterName = name + strconv.Itoa(Targetgroup*100+TargetI)
-	client.net = net
-	return client
+func (t TrueClient) GetIP() string {
+	return t.IP + ":" + strconv.Itoa(t.Port)
 }
-func MakeMySerClient(m int, name string, group int, i int, net *NetWork) *Client {
-	client := &Client{}
-	client.Me = m
-	client.Port = strconv.Itoa(20000 + group*100 + i)
-	client.Group = group
-	client.Num = i
-	client.ClusterName = name + strconv.Itoa(group*100+i)
-	client.net = net
+
+func MakeTrueClient(ip string, port int, name string, myself string) *TrueClient {
+	client := &TrueClient{}
+	client.myIp = myself
+	client.Port = port
+	client.IP = ip
+	client.ClusterName = name
 	return client
 }
 
-func (c *Client) Call(svcMeth string, args interface{}, reply interface{}) bool {
+func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) bool {
 	for c.client == nil {
-		client, err := rpc.Dial("tcp", "localhost:"+c.Port)
+		client, err := rpc.Dial("tcp", c.IP+":"+strconv.Itoa(c.Port))
 		if err != nil {
-			//log.Println("dialing:", err)
+			fmt.Println(c, svcMeth)
+			fmt.Println("dialing:", err)
 			time.Sleep(time.Millisecond * 100)
 		}
 		c.client = client
 	}
-	if c.net.Unreliable == true {
-		// short delay
-		ms := (rand.Int() % 27)
-		time.Sleep(time.Duration(ms) * time.Millisecond)
-	}
 
-	if c.net.Unreliable == true && (rand.Int()%1000) < 100 {
-		// drop the request, return as if timeout
-		return false
-	}
+	fmt.Println(c.ClusterName)
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {
-		fmt.Printf("错误%v ,me is %d,target is %d\n",err.Error(),c.Me,c.Num+c.Group*100)
+		fmt.Printf("错误%v ,me is %s,target is %d\n", err.Error(), c.myIp, c.IP+strconv.Itoa(c.Port))
 	}
 	return true
 }
@@ -141,45 +125,51 @@ func MakeAllNet(Unreliable, Partitions bool, nmaster, ngroup, n int) *NetWork {
 	return net
 }
 
-//me+g 为自己，n为有几台机器
-func MakeGroupRaftClient(muGroup, me, g int, n int, net *NetWork) map[int]*Client {
-	//自己只能调用自己
-	fmt.Println("[MakeGroupRaftClient]",n)
-	m := make(map[int]*Client)
-	for i := 0; i < n; i++ {
-		m[i+g*100] = MakeMyClient(me+muGroup*100, RaftName, g, i, net)
-	}
-	return m
+type Clients struct {
+	MasterN    int
+	GroupN     int
+	Num        int
+	GroupsServ [][]*TrueClient
+	GroupsRaft [][]*TrueClient
 }
 
-//me+g 为目标
-func MakeGroupSerClient(muGroup, me, g int, n int, net *NetWork) map[int]*Client {
-	m := make(map[int]*Client)
-	for i := 0; i < n; i++ {
-		m[i+g*100] = MakeMySerClient(me+muGroup*100, SerName, g, i, net)
+func MakeAllTrueClient(conf tool.Conf) *Clients {
+	clients := &Clients{}
+	clients.MasterN = conf.MasterN
+	clients.GroupN = conf.GroupN
+	clients.Num = conf.Num
+	clients.GroupsServ = make([][]*TrueClient, conf.GroupN+1)
+	clients.GroupsRaft = make([][]*TrueClient, conf.GroupN+1)
+	clients.GroupsServ[0] = make([]*TrueClient, conf.Num)
+	clients.GroupsRaft[0] = make([]*TrueClient, conf.Num)
+	fmt.Println(conf.Group, conf.Num)
+	for i := 0; i < clients.MasterN; i++ {
+		masterIP := conf.MasterIP[i]
+		strs := strings.Split(masterIP, " ")
+		ip := strs[0]
+		raftIp, err := strconv.Atoi(strs[1])
+		servIp, err := strconv.Atoi(strs[2])
+		if err != nil {
+
+		}
+		clients.GroupsServ[0][i] = MakeTrueClient(ip, raftIp, "Serv", conf.Ip+strconv.Itoa(conf.Port))
+		clients.GroupsRaft[0][i] = MakeTrueClient(ip, servIp, "Raft", conf.Ip+strconv.Itoa(conf.RaftPort))
 	}
-	return m
-}
-func MakeGroupSerClientAll(muGroup, me, gNum int, n int, net *NetWork) map[int]*Client {
-	m := make(map[int]*Client)
-	for j := 1;j<=gNum;j++{
-		for i := 0; i < n; i++ {
-			m[i+j*100] = MakeMySerClient(me+muGroup*100, SerName, j, i, net)
+	for i := 0; i < clients.GroupN; i++ {
+		clients.GroupsRaft[i+1] = make([]*TrueClient, conf.Num)
+		clients.GroupsServ[i+1] = make([]*TrueClient, conf.Num)
+		for j := 0; j < clients.Num; j++ {
+			masterIP := conf.Spec.Conditions[i].IP[j]
+			strs := strings.Split(masterIP, " ")
+			ip := strs[0]
+			raftIp, err := strconv.Atoi(strs[1])
+			servIp, err := strconv.Atoi(strs[2])
+			if err != nil {
+
+			}
+			clients.GroupsRaft[i+1][j] = MakeTrueClient(ip, raftIp, "Raft", conf.Ip+strconv.Itoa(conf.RaftPort))
+			clients.GroupsServ[i+1][j] = MakeTrueClient(ip, servIp, "Serv", conf.Ip+strconv.Itoa(conf.Port))
 		}
 	}
-
-	return m
-}
-
-//me+g 为目标
-func MakeGroupSerClientAsList(muGroup, me, g int, n int, net *NetWork) []*Client {
-	m := make([]*Client, 0)
-	for i := 0; i < n; i++ {
-		m = append(m, MakeMySerClient(muGroup*100+me, SerName, g, i, net))
-	}
-	return m
-}
-
-func (net *NetWork) Disconnect(i, j int) {
-
+	return clients
 }

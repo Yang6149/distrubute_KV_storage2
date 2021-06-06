@@ -1,0 +1,38 @@
+ip: localhost
+port: 8080
+raftPort: 8081 
+ismaster: true
+ismasterclient: true
+isclient: false
+id: 0
+group: 0
+
+masterN: 3
+GroupN: 3
+Num : 3
+
+masterIP:
+  - localhost 8000 8100
+  - localhost 8001 8101
+  - localhost 8002 8102
+spec:
+  conditions:
+    - id: 1
+      ip:
+        - localhost 8200 8210
+        - localhost 8201 8211
+        - localhost 8202 8212
+    - id: 2
+      ip:
+        - localhost 8300 8310
+        - localhost 8301 8311
+        - localhost 8302 8312
+    - id: 3
+      ip:
+        - localhost 8400 8410
+        - localhost 8401 8411
+        - localhost 8402 8412
+
+
+
+    

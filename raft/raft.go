@@ -7,12 +7,14 @@ import (
 	"math/rand"
 	"net"
 	"net/rpc"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
 
 	"distrubute_KV_storage/labgob"
 	"distrubute_KV_storage/labrpc"
+	"distrubute_KV_storage/tool"
 )
 
 // import "bytes"
@@ -50,14 +52,14 @@ type HBchs struct {
 type Raft struct {
 	mu         sync.Mutex // Lock to protect shared access to this peer's state
 	LeaderCond sync.Cond
-	peers      []*labrpc.ClientEnd            // RPC end points of all peers
-	client     map[int]map[int]*labrpc.Client // true RPC client
-	persister  *Persister                     // Object to hold this peer's persisted state
-	me         int                            // this peer's index into peers[]
-	g          int
-	dead       int32 // set by Kill()
+	client     *labrpc.Clients // true RPC client
+	persister  *Persister      // Object to hold this peer's persisted state
+	me         int             // this peer's index into peers[]
+	dead       int32           // set by Kill()
 	state      int
 	start      time.Time
+	conf       tool.Conf
+	group      int
 
 	//持久化
 	currentTerm int     // 当前的 term
@@ -203,8 +205,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.persist()
 		DPrintf("%d add a command:%d at index %d", rf.me, command, rf.logLen()-1)
 		if isDan {
-			for i := range rf.client[rf.MyId()] {
-				i = i%100
+			for i := 0; i < rf.conf.Num; i++ {
 				if i == rf.me || len(rf.heartBeatchs[i].c) > 0 {
 					continue
 				}
@@ -308,103 +309,16 @@ func (rf *Raft) killed() bool {
 // Make() must return quickly, so it should start goroutines
 // for any long-running work.
 //
-func Make(peers []*labrpc.ClientEnd, me int,
-	persister *Persister, applyCh chan ApplyMsg) *Raft {
-	rf := &Raft{}
-	//rpc.RegisterName("HelloService", new(Raft))
-	rf.peers = peers
-	rf.persister = persister
-	rf.me = me
-	rf.menkan = len(rf.client[rf.MyId()])/2 + 1
-	rf.applyCh = applyCh
-	rf.currentTerm = 1
-	rf.log = make([]Entry, 1)
-	rf.log[0] = Entry{Term: rf.currentTerm}
-	rf.sendApply = make(chan int, 1000)
-	rf.heartBeatchs = make([]HBchs, len(rf.client[rf.MyId()]))
-	//3B
-	rf.lastIncludedIndex = -1
-	rf.lastIncludedTerm = 0
-	for i := range rf.heartBeatchs {
-		rf.heartBeatchs[i].c = make(chan int, 1000)
-	}
-	rf.chanReset()
-	// Your initialization code here (2A, 2B, 2C).-------------------------------
 
-	// initialize from state persisted before a crash
-	rf.readPersist(persister.ReadRaftState())
-	go func(rf *Raft) {
-		for {
-			if rf.killed() {
-				rf.mu.Lock()
-				defer rf.mu.Unlock()
-				rf.convert(follower)
-				return
-			}
-			rf.mu.Lock()
-			st := rf.state
-			rf.mu.Unlock()
-			switch st {
-			case follower:
-				//
-				select {
-				case <-rf.findBiggerChan:
-				case <-rf.appendChan:
-					//follower收到有效append，重置超时
-				case <-time.After(electionConstTime()):
-					//超时啦，进行选举
-					rf.mu.Lock()
-					rf.chanReset()
-					rf.convert(candidate)
-					rf.election()
-					rf.mu.Unlock()
-				}
-			case candidate:
-				select {
-				case <-rf.findBiggerChan:
-
-					//发现了更大地 term ，转为follower
-				case <-rf.appendChan:
-					//candidate 收到有效心跳，转回follower
-				case <-rf.voteGrantedChan:
-					//candidate 收到多数投票结果，升级为 leader
-				case <-time.After(electionConstTime()):
-					//没有投票结果，也没有收到有效append，重新giao
-					rf.mu.Lock()
-					rf.chanReset()
-					rf.election()
-					rf.mu.Unlock()
-				}
-				//
-			case leader:
-				select {
-				case <-rf.findBiggerChan:
-
-				case <-rf.appendChan:
-					//收到有效地心跳，转为follower
-				case <-time.After(heartbeatConstTime):
-					// 	//进行一次append
-					// rf.mu.Lock()
-					// rf.chanReset()
-					// rf.heartBeat()
-					// rf.mu.Unlock()
-				}
-
-			}
-		}
-	}(rf)
-	go rf.apply()
-	return rf
-}
-func Make2(client map[int]map[int]*labrpc.Client, me int, g int,
+func Make(clients *labrpc.Clients, conf tool.Conf, me int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
 	rf := &Raft{}
 	rf.start = time.Now()
 	//rpc.RegisterName("HelloService", new(Raft))
 	go func() {
-		rpc.RegisterName(client[me+g*100][me+g*100].ClusterName, rf)
-		listener, err := net.Listen("tcp", "localhost:"+client[me+g*100][me+g*100].Port)
-		fmt.Printf("raft serverName := %s \t listener := %s\n", client[me+g*100][me+g*100].ClusterName, client[me+g*100][me+g*100].Port)
+		rpc.RegisterName("Raft", rf)
+		listener, err := net.Listen("tcp", conf.Ip+":"+strconv.Itoa(conf.RaftPort))
+		fmt.Printf("raft serverName := %s \t listener := %s \n", "Raft", conf.Ip+":"+strconv.Itoa(conf.RaftPort))
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
 		}
@@ -417,17 +331,18 @@ func Make2(client map[int]map[int]*labrpc.Client, me int, g int,
 			go rpc.ServeConn(conn)
 		}
 	}()
+	rf.conf = conf
+	rf.me = conf.Id
+	rf.group = conf.Group
 	rf.persister = persister
-	rf.me = me
-	rf.g = g
-	rf.client = client
-	rf.menkan = len(rf.client[rf.MyId()])/2 + 1
+	rf.client = clients
+	rf.menkan = clients.Num/2 + 1
 	rf.applyCh = applyCh
 	rf.currentTerm = 1
 	rf.log = make([]Entry, 1)
 	rf.log[0] = Entry{Term: rf.currentTerm}
 	rf.sendApply = make(chan int, 1000)
-	rf.heartBeatchs = make([]HBchs, len(rf.client[rf.MyId()]))
+	rf.heartBeatchs = make([]HBchs, conf.Num)
 	//3B
 	rf.lastIncludedIndex = -1
 	rf.lastIncludedTerm = 0
@@ -549,7 +464,4 @@ func (rf *Raft) SaveSnapshot(snapshots []byte) {
 }
 func (rf *Raft) GetSnapshots() []byte {
 	return rf.persister.ReadSnapshot()
-}
-func (rf *Raft)MyId()int{
-	return rf.me+rf.g*100
 }

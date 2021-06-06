@@ -28,7 +28,7 @@ type RequestVoteReply struct {
 // example RequestVote RPC handler.handler、handler、handler
 //
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error {
-	fmt.Printf("me is %d %v,caller is %d, %d 的log是%d， %d的log是%d\n",rf.me,rf.start,args.CandidateId,rf.me,rf.logLen()-1,args.CandidateId,args.LastLogIndex)
+	fmt.Printf("me is %d %v,caller is %d, %d 的log是%d， %d的log是%d\n", rf.me, rf.start, args.CandidateId, rf.me, rf.logLen()-1, args.CandidateId, args.LastLogIndex)
 	//fmt.Printf("vote %d,response\n", rf.me)
 	// Your code here (2A, 2B).----------------------------------------
 	rf.mu.Lock()
@@ -60,7 +60,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error
 				DPrintf("%d votefor %d,当前 term %d", rf.me, args.CandidateId, rf.currentTerm)
 				reply.Term = args.Term
 				reply.VoteGranted = true
-				fmt.Printf("%d vote %d,response\n", rf.me,args.CandidateId)
+				fmt.Printf("%d vote %d,response\n", rf.me, args.CandidateId)
 				return nil
 			}
 			// rf.voteFor = args.CandidateId
@@ -114,8 +114,16 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error
 // the struct itself.
 //
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	fmt.Println(rf.client[rf.MyId()])
-	fmt.Println("ser",server)
-	ok := rf.client[rf.MyId()][server+rf.g*100].Call("RequestVote", *args, reply)
+	// fmt.Println("election", server, rf.conf.Group)
+	// fmt.Println(rf.client.GroupsRaft[rf.conf.Group][server])
+	// fmt.Println("changdu", len(rf.client.GroupsRaft))
+	// fmt.Println("chang--------", rf.client.GroupsRaft)
+	// for i := 0; i < len(rf.client.GroupsRaft); i++ {
+	// 	fmt.Println(i)
+	// 	for j := 0; j < len(rf.client.GroupsRaft[0]); j++ {
+	// 		fmt.Println(rf.client.GroupsRaft[i][j])
+	// 	}
+	// }
+	ok := rf.client.GroupsRaft[rf.conf.Group][server].Call("RequestVote", *args, reply)
 	return ok
 }

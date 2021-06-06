@@ -52,7 +52,6 @@ package labrpc
 import (
 	"bytes"
 	"distrubute_KV_storage/labgob"
-	"fmt"
 	"log"
 	"math/rand"
 	"net/rpc"
@@ -86,22 +85,6 @@ type ClientEnd struct {
 // send an RPC, wait for the reply.
 // the return value indicates success; false means that
 // no reply was received from the server.
-func (e *ClientEnd) Call(svcMeth string, args interface{}, reply interface{}) bool {
-	time.Sleep(time.Millisecond * 2000)
-	if e.client == nil {
-		client, err := rpc.Dial("tcp", "localhost:3000"+e.endname.(string)[6:])
-		if err != nil {
-			log.Fatal("dialing:", err)
-		}
-		e.client = client
-	}
-	err := e.client.Call(e.endname.(string)+svcMeth, args, reply)
-	fmt.Printf("Call\t" + e.endname.(string) + svcMeth + "\n")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return true
-}
 
 type Network struct {
 	mu             sync.Mutex

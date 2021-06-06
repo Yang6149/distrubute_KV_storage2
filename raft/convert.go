@@ -25,12 +25,12 @@ func (rf *Raft) convert(state int) {
 		fmt.Printf("%d 转变为 leader\n", rf.me)
 		//初始化 每个follower 的HBchs
 		//初始化 leader 的nextIndex
-		rf.nextIndex = make([]int, len(rf.client[rf.MyId()]))
+		rf.nextIndex = make([]int, rf.conf.Num)
 		for a := range rf.nextIndex {
 			rf.nextIndex[a] = rf.logLen()
 			DPrintf("%d 初始化 nextIndex %d ", rf.me, rf.nextIndex[a])
 		}
-		rf.matchIndex = make([]int, len(rf.client[rf.MyId()]))
+		rf.matchIndex = make([]int, rf.conf.Num)
 		rf.heartBeat()
 		go rf.heartBeatInit()
 		DPrintf("%d log=%d,len = %d commit = %d", rf.me, rf.log, rf.logLen(), rf.commitIndex)

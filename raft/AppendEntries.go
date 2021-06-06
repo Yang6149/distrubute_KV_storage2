@@ -1,5 +1,7 @@
 package raft
 
+import "fmt"
+
 type AppendEntriesArgs struct {
 	Term         int
 	LeaderId     int
@@ -148,13 +150,15 @@ func (rf *Raft) InstallSnapshots(args *InstallSnapshotsArgs, reply *InstallSnaps
 
 // server is g+i
 func (rf *Raft) sendInstallSnapshots(server int, args InstallSnapshotsArgs, reply *InstallSnapshotsReply) bool {
-	ok := rf.client[rf.MyId()][server+rf.g*100].Call("InstallSnapshots", args, reply)
+	ok := rf.client.GroupsRaft[rf.conf.Group][server].Call("InstallSnapshots", args, reply)
 	return ok
 }
 
 // server is g+i
 func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *AppendEntriesReply) bool {
-	ok := rf.client[rf.MyId()][server+rf.g*100].Call("AppendEntries", args, reply)
+	fmt.Println("sendAppend")
+
+	ok := rf.client.GroupsRaft[rf.conf.Group][server].Call("AppendEntries", args, reply)
 	return ok
 }
 

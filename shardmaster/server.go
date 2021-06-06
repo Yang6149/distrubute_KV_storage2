@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/rpc"
 	"sort"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -13,6 +14,7 @@ import (
 	"distrubute_KV_storage/labgob"
 	"distrubute_KV_storage/labrpc"
 	"distrubute_KV_storage/raft"
+	"distrubute_KV_storage/tool"
 )
 
 const Join = "Join"
@@ -191,7 +193,7 @@ func (sm *ShardMaster) Kill() {
 	atomic.StoreInt32(&sm.dead, 1)
 	DPrintf("%d :杀死一个 server", sm.me)
 	(*sm.listener).Close()
-	fmt.Println("close sm",sm.me)
+	fmt.Println("close sm", sm.me)
 	sm.rf.Kill()
 
 	// Your code here, if desired.
@@ -213,8 +215,8 @@ func (sm *ShardMaster) Raft() *raft.Raft {
 // form the fault-tolerant shardmaster service.
 // me is the index of the current server in servers[].
 //
-func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]map[int]*labrpc.Client, me ,g int, persister *raft.Persister) *ShardMaster {
-	fmt.Println("开启服务",me)
+func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *raft.Persister) *ShardMaster {
+	fmt.Println("开启服务", me)
 	sm := new(ShardMaster)
 	sm.me = me
 
@@ -223,15 +225,15 @@ func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]
 
 	labgob.Register(Op{})
 	sm.applyCh = make(chan raft.ApplyMsg)
-	sm.rf = raft.Make2(raftclients, me, g, persister, sm.applyCh)
+	sm.rf = raft.Make(clients, conf, me, persister, sm.applyCh)
 	sm.apps = make(map[int]chan Op)
 	sm.dup = make(map[int64]int)
 	// Your code here.
 	go func() {
-		rpc.RegisterName(svrclients[me+g*100][me+g*100].ClusterName, sm)
-		listener, err := net.Listen("tcp", "localhost:"+svrclients[me+g*100][me+g*100].Port)
+		rpc.RegisterName("Serv", sm)
+		listener, err := net.Listen("tcp", conf.Ip+":"+strconv.Itoa(conf.Port))
 		sm.listener = &listener
-		fmt.Printf("shardmaster serverName := %s \t listener := %s\n", svrclients[me+g*100][me+g*100].ClusterName, svrclients[me+g*100][me+g*100].Port)
+		fmt.Printf("shardmaster serverName := %s \t listener := %s\n", "Serv", conf.Ip+":"+strconv.Itoa(conf.Port))
 
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
@@ -250,6 +252,13 @@ func StartServer(raftclients map[int]map[int]*labrpc.Client, svrclients map[int]
 	}()
 	go sm.apply()
 	DPrintf("%d init", me)
+	go func() {
+		for {
+			time.Sleep(time.Second)
+			fmt.Println(sm.Raft().GetState())
+		}
+
+	}()
 	return sm
 }
 

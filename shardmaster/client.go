@@ -14,7 +14,7 @@ import (
 )
 
 type Clerk struct {
-	servers []*labrpc.Client
+	servers *labrpc.Clients
 	// Your data here.
 	id       int64
 	serialId int
@@ -28,7 +28,7 @@ func nrand() int64 {
 	return x
 }
 
-func MakeClerk(servers []*labrpc.Client) *Clerk {
+func MakeClerk(servers *labrpc.Clients) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	ck.id = nrand()
@@ -48,7 +48,7 @@ func (ck *Clerk) Query(num int) Config {
 	args.SerialId = ck.serialId
 	for {
 		// try each known server.
-		srv := ck.servers[ck.leader]
+		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply QueryReply
 		ok := srv.Call("Query", args, &reply)
 		fmt.Println(reply)
@@ -56,7 +56,7 @@ func (ck *Clerk) Query(num int) Config {
 			return reply.Config
 		}
 		time.Sleep(100 * time.Millisecond)
-		ck.leader = (ck.leader + 1) % len(ck.servers)
+		ck.leader = (ck.leader + 1) % len(ck.servers.GroupsServ[0])
 	}
 }
 
@@ -69,19 +69,19 @@ func (ck *Clerk) Join(servers map[int][]string) {
 	args.SerialId = ck.serialId
 	for {
 		// try each known server.
-		srv := ck.servers[ck.leader]
+		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply JoinReply
 		fmt.Println("try2")
 		ok := srv.Call("Join", args, &reply)
 		fmt.Println("try3")
-		fmt.Println(ok,reply)
+		fmt.Println(ok, reply)
 		fmt.Println(srv)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
 		fmt.Println("try4")
 		time.Sleep(100 * time.Millisecond)
-		ck.leader = (ck.leader + 1) % len(ck.servers)
+		ck.leader = (ck.leader + 1) % len(ck.servers.GroupsServ[0])
 	}
 }
 
@@ -94,14 +94,14 @@ func (ck *Clerk) Leave(gids []int) {
 	args.SerialId = ck.serialId
 	for {
 		// try each known server.
-		srv := ck.servers[ck.leader]
+		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply LeaveReply
 		ok := srv.Call("Leave", args, &reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
 		time.Sleep(100 * time.Millisecond)
-		ck.leader = (ck.leader + 1) % len(ck.servers)
+		ck.leader = (ck.leader + 1) % len(ck.servers.GroupsServ[0])
 	}
 }
 
@@ -115,14 +115,32 @@ func (ck *Clerk) Move(shard int, gid int) {
 	args.SerialId = ck.serialId
 	for {
 		// try each known server.
-		srv := ck.servers[ck.leader]
+		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply MoveReply
 		ok := srv.Call("Move", args, &reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
 		time.Sleep(100 * time.Millisecond)
-		ck.leader = (ck.leader + 1) % len(ck.servers)
+		ck.leader = (ck.leader + 1) % len(ck.servers.GroupsServ[0])
 	}
 }
 
+func (ck *Clerk) Joinm(gis []int) {
+	ck.joinm(gis)
+}
+func (ck *Clerk) EasyJoin(gi int) {
+	ck.joinm([]int{gi})
+}
+
+func (ck *Clerk) joinm(gis []int) {
+	m := make(map[int][]string, len(gis))
+	for _, g := range gis {
+		servernames := make([]string, ck.servers.Num)
+		for i := 0; i < ck.servers.Num; i++ {
+			servernames[i] = ck.servers.GroupsServ[g][i].GetIP()
+		}
+		m[g] = servernames
+	}
+	ck.Join(m)
+}

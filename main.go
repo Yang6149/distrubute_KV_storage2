@@ -56,8 +56,8 @@ func main() {
 	fmt.Println("isMasterClient", c.IsMasterClient)
 	fmt.Println("isClient", c.IsClient)
 	if c.IsMasterClient {
-		// clerk := shardmaster.MakeClerk(clients)
 		client := shardkv.MakeClerk(clients)
+		// clerk := shardmaster.MakeClerk(clients)
 
 		// clerk.EasyJoin(1)
 		// clerk.EasyJoin(2)

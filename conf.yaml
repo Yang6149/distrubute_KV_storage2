@@ -1,6 +1,6 @@
 ip: localhost
-port: 8080
-raftPort: 8081 
+port: 8001
+raftPort: 8000 
 ismaster: true
 ismasterclient: true
 isclient: false
@@ -12,26 +12,26 @@ GroupN: 3
 Num : 3
 
 masterIP:
-  - localhost 8000 8100
-  - localhost 8001 8101
-  - localhost 8002 8102
+  - 39.99.229.13 8000 8001
+  - 39.99.252.196 8000 8001
+  - 39.101.170.4 8000 8001
 spec:
   conditions:
     - id: 1
       ip:
-        - localhost 8200 8210
-        - localhost 8201 8211
-        - localhost 8202 8212
+        - 39.98.118.6 8000 8001
+        - 39.99.153.16 8000 8001
+        - 39.99.239.249 8000 8001
     - id: 2
       ip:
-        - localhost 8300 8310
-        - localhost 8301 8311
-        - localhost 8302 8312
+        - 39.98.123.50 8000 8001
+        - 39.99.129.55 8000 8001
+        - 39.101.172.50 8000 8001
     - id: 3
       ip:
-        - localhost 8400 8410
-        - localhost 8401 8411
-        - localhost 8402 8412
+        - 39.101.163.33 8000 8001
+        - 39.98.124.159 8000 8001
+        - 39.98.121.227 8000 8001
 
 
 

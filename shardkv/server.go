@@ -148,8 +148,8 @@ func (kv *ShardKV) start(op Op) (string, Err) {
 	if s, ok := kv.shards[shard]; gid != kv.gid || !ok || s.Version < kv.config.Num {
 		//gid 对不上、不存在该 shard、存在但是不可用状态
 		defer kv.mu.Unlock()
-		kv.DPrintf("%d %d %d %d", kv.gid, kv.me, gid != kv.gid, !ok, s.Version < kv.config.Num, s.Version, kv.config.Num)
-		kv.DPrintf("%d %d %d %d", kv.gid, kv.me, gid, ok)
+		fmt.Println(kv.gid, kv.me, gid != kv.gid, !ok, s.Version < kv.config.Num, s.Version, kv.config.Num)
+		fmt.Println("%d %d %d %d", kv.gid, kv.me, gid, ok)
 		return "", ErrWrongGroup
 	}
 	//检查put重复或是否直接返回get

@@ -115,6 +115,11 @@ type ShardKV struct {
 	listener          *net.Listener
 }
 
+// needed by shardkv tester
+func (sm *ShardKV) Raft() *raft.Raft {
+	return sm.rf
+}
+
 func (kv *ShardKV) Get(args GetArgs, reply *GetReply) error {
 	// Your code here.
 	_, isLeader := kv.rf.GetState()
@@ -301,6 +306,14 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me int, persister *raf
 	go kv.fetchLatestConfig()
 	go kv.detectConfig()
 	go kv.GCDeamon()
+	go func() {
+		for {
+			time.Sleep(time.Second)
+			v1, v2 := kv.Raft().GetState()
+			fmt.Printf("raftstate : %v,%v\n", v1, v2)
+		}
+
+	}()
 	return kv
 }
 

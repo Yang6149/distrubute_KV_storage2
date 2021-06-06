@@ -259,6 +259,7 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me int, persister *raf
 	// kv.mck = shardmaster.MakeClerk(kv.masters)
 	//构建一个自己的用户
 	kv.sm = shardmaster.MakeClerk(clients)
+	fmt.Println("goroutine -> rpc init")
 	go func() {
 		fmt.Println("*****************", conf.Ip, conf.Port)
 		rpc.RegisterName("Serv", kv)
@@ -294,14 +295,15 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me int, persister *raf
 	//kv.initShard()
 	kv.maxraftstate = maxraftstate
 	kv.LoadSnapshot(kv.rf.GetSnapshots())
-	EPrintf("%d %d :init finished", kv.gid, kv.me)
-	EPrintf("%d %d :config- %v", kv.gid, kv.me, kv.config)
+	fmt.Printf("%d %d :init finished\n", kv.gid, kv.me)
+	fmt.Printf("%d %d :config- %v\n", kv.gid, kv.me, kv.config)
 	//labgob init
 	labgob.Register(MigrateArgs{})
 	labgob.Register(Shard{})
 	labgob.Register(shardmaster.Config{})
 	labgob.Register(GC{})
 	// You may need initialization code here.
+	fmt.Println("大量携程")
 	go kv.apply()
 	go kv.fetchLatestConfig()
 	go kv.detectConfig()

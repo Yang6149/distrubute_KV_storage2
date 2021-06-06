@@ -230,13 +230,13 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *
 	sm.dup = make(map[int64]int)
 
 	// Your code here.
-
+	fmt.Println("注册rpc")
 	go func() {
 		rpc.RegisterName("Serv", sm)
 		listener, err := net.Listen("tcp", conf.Ip+":"+strconv.Itoa(conf.Port))
 		sm.listener = &listener
 		fmt.Printf("shardmaster serverName := %s \t listener := %s\n", "Serv", conf.Ip+":"+strconv.Itoa(conf.Port))
-
+		fmt.Println("注册rpc成功")
 		if err != nil {
 			log.Fatal("ListenTCP error:", err)
 		}
@@ -254,6 +254,7 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *
 	}()
 	go sm.apply()
 	DPrintf("%d init", me)
+	fmt.Println("开始循环")
 	go func() {
 		for {
 			time.Sleep(time.Second)

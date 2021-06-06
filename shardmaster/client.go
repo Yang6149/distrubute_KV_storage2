@@ -49,6 +49,7 @@ func (ck *Clerk) Query(num int) Config {
 	for {
 		// try each known server.
 		srv := ck.servers.GroupsServ[0][ck.leader]
+
 		var reply QueryReply
 		ok := srv.Call("Query", args, &reply)
 		fmt.Println(reply)
@@ -70,6 +71,16 @@ func (ck *Clerk) Join(servers map[int][]string) {
 	for {
 		// try each known server.
 		srv := ck.servers.GroupsServ[0][ck.leader]
+		// fmt.Println(ck.servers.GroupsServ[0][ck.leader])
+		// fmt.Println(ck.servers.GroupsRaft[0][ck.leader])
+		// fmt.Println("changdu", len(ck.servers.GroupsRaft))
+		// fmt.Println("chang--------", ck.servers.GroupsRaft)
+		// for i := 0; i < len(ck.servers.GroupsRaft); i++ {
+		// 	fmt.Println(i)
+		// 	for j := 0; j < len(ck.servers.GroupsRaft[0]); j++ {
+		// 		fmt.Println(ck.servers.GroupsRaft[i][j])
+		// 	}
+		// }
 		var reply JoinReply
 		fmt.Println("try2")
 		ok := srv.Call("Join", args, &reply)
@@ -143,4 +154,16 @@ func (ck *Clerk) joinm(gis []int) {
 		m[g] = servernames
 	}
 	ck.Join(m)
+}
+
+func (ck *Clerk) Leavem(gis []int) {
+	ck.leavem(gis)
+}
+func (ck *Clerk) EasyLeave(gi int) {
+	ck.leavem([]int{gi})
+}
+
+func (ck *Clerk) leavem(gis []int) {
+
+	ck.Leave(gis)
 }

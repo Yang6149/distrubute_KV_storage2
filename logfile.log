@@ -637,3 +637,1579 @@
 2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
 2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
 2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Raft" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Raft" has 1 input parameters; needs exactly three
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 convert.go:24: 1 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 2 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 convert.go:24: 0 转变为 leader
+2021/06/06 server.go:292: rpc.Register: method "Discard" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetSnapshots" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetState" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "GetStateSize" has 1 input parameters; needs exactly three
+2021/06/06 server.go:322: rpc.Register: method "InstallSnapshots" has 0 output parameters; needs exactly one
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SaveSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Start" has 2 input parameters; needs exactly three
+2021/06/06 server.go:308: rpc.Register: reply type of method "DPrintf" is not a pointer: "[]interface {}"
+2021/06/06 server.go:308: rpc.Register: reply type of method "GC" is not a pointer: "int"
+2021/06/06 server.go:292: rpc.Register: method "GCDeamon" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "Kill" has 1 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "LoadSnapshot" has 2 input parameters; needs exactly three
+2021/06/06 server.go:292: rpc.Register: method "SnapshotPersister" has 2 input parameters; needs exactly three

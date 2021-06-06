@@ -3,7 +3,7 @@ port: 8080
 raftPort: 8081 
 ismaster: true
 ismasterclient: true
-isclient: false
+isclient: true
 id: 0
 group: 0
 

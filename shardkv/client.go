@@ -46,7 +46,7 @@ type Clerk struct {
 	config  shardmaster.Config
 	clients *labrpc.Clients
 	id      int
-	me      int64
+	Me      int64
 	serial  int
 	leader  int
 
@@ -66,9 +66,10 @@ func MakeClerk(clients *labrpc.Clients) *Clerk {
 	ck := new(Clerk)
 	ck.sm = shardmaster.MakeClerk(clients)
 
-	ck.me = nrand()
+	ck.Me = nrand()
 	ck.serial = 0
 	ck.leader = 0
+	ck.clients = clients
 	// You'll have to add code here.
 	return ck
 }
@@ -82,7 +83,7 @@ func MakeClerk(clients *labrpc.Clients) *Clerk {
 func (ck *Clerk) Get(key string) string {
 	args := GetArgs{}
 	args.Key = key
-	args.ClientId = ck.me
+	args.ClientId = ck.Me
 	ck.serial++
 	args.SerialId = ck.serial
 	for {
@@ -120,7 +121,7 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 	args.Key = key
 	args.Value = value
 	args.Op = op
-	args.ClientId = ck.me
+	args.ClientId = ck.Me
 	ck.serial++
 	args.SerialId = ck.serial
 	for {

@@ -3,6 +3,7 @@ package tool
 import (
 	"io/ioutil"
 	"log"
+	"strconv"
 
 	"gopkg.in/yaml.v2"
 )
@@ -47,4 +48,10 @@ func (c *Conf) GetConf() *Conf {
 		log.Fatalf("Unmarshal: %v", err)
 	}
 	return c
+}
+func (c *Conf) GetMyRaftIp() string {
+	return c.Ip + ":" + strconv.Itoa(c.RaftPort)
+}
+func (c *Conf) GetMyServeIp() string {
+	return c.Ip + ":" + strconv.Itoa(c.Port)
 }

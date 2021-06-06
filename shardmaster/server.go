@@ -258,7 +258,8 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *
 	go func() {
 		for {
 			time.Sleep(time.Second)
-			fmt.Println(sm.Raft().GetState())
+			v1, v2 := sm.Raft().GetState()
+			fmt.Printf("raftstate : %v,%v\n", v1, v2)
 		}
 
 	}()

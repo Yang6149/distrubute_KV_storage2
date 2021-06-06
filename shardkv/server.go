@@ -375,6 +375,8 @@ func (kv *ShardKV) apply() {
 				kv.checkMaxState(msg.CommandIndex)
 			case shardmaster.Config:
 				config := command
+				fmt.Println("ijsosos ", config)
+
 				if config.Num > kv.config.Num {
 					kv.impleConfig = config.Num
 					//为那些没有改变shard 的 version 进行同步
@@ -401,8 +403,10 @@ func (kv *ShardKV) apply() {
 							}
 						}
 						kv.DPrintf("%d %d 初始化 %d ", kv.gid, kv.me, temp)
+						fmt.Println("ifgos 初始化", kv.gid, kv.me, temp)
 					}
-
+					fmt.Println("oikjsd 更新", kv.config)
+					fmt.Println("idjkvfbk 更新", config)
 					kv.config = config
 					// now := time.Now().UnixNano()
 					// res := (now - begin) / int64(time.Millisecond)

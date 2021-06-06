@@ -1,0 +1,7 @@
+2021/06/06 server.go:292: rpc.Register: method "GetClient" has 2 input parameters; needs exactly three
+2021/06/06 main.go:57: ListenTCP error:listen tcp 127.0.0.1:10001: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
+2021/06/06 server.go:292: rpc.Register: method "GetClient" has 2 input parameters; needs exactly three
+2021/06/06 main.go:57: ListenTCP error:listen tcp 127.0.0.1:10001: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
+2021/06/06 server.go:292: rpc.Register: method "GetClient" has 2 input parameters; needs exactly three
+2021/06/06 main.go:57: ListenTCP error:listen tcp 127.0.0.1:10001: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
+2021/06/06 server.go:292: rpc.Register: method "GetClient" has 2 input parameters; needs exactly three

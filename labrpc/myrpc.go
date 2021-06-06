@@ -70,7 +70,7 @@ func MakeTrueClient(ip string, port int, name string, myself string) *TrueClient
 
 func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) bool {
 	for c.client == nil {
-		client, err := rpc.Dial("tcp", c.GetIP())
+		client, err := rpc.Dial("tcp", c.IP+":"+strconv.Itoa(c.Port))
 		if err != nil {
 			fmt.Println(c, svcMeth)
 			fmt.Println("dialing:", err)
@@ -78,12 +78,10 @@ func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) b
 		}
 		c.client = client
 	}
-	fmt.Println("name = = ", c.ClusterName, c.GetIP(), svcMeth)
+
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {
-		c.client = nil
-		fmt.Printf("错误%v ,me is %s,target is %d\n", err.Error(), c.myIp, c.GetIP())
-		return false
+		fmt.Printf("错误%v ,me is %s,target is %d\n", err.Error(), c.myIp, c.IP+":"+strconv.Itoa(c.Port))
 	}
 	return true
 }

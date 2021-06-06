@@ -76,6 +76,7 @@ func main() {
 		client := shardkv.MakeClerk(clients)
 
 		clerk := shardmaster.MakeClerk(clients)
+		fmt.Print(clerk.Query(-1))
 		clerk.EasyJoin(1)
 		clerk.EasyJoin(2)
 		clerk.EasyJoin(3)

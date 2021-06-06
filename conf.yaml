@@ -2,7 +2,7 @@ ip: localhost
 port: 8080
 raftPort: 8081 
 ismaster: true
-ismasterclient: true
+ismasterclient: false
 isclient: true
 id: 0
 group: 0

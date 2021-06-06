@@ -228,7 +228,9 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *
 	sm.rf = raft.Make(clients, conf, me, persister, sm.applyCh)
 	sm.apps = make(map[int]chan Op)
 	sm.dup = make(map[int64]int)
+
 	// Your code here.
+
 	go func() {
 		rpc.RegisterName("Serv", sm)
 		listener, err := net.Listen("tcp", conf.Ip+":"+strconv.Itoa(conf.Port))

@@ -82,9 +82,7 @@ func (ck *Clerk) Join(servers map[int][]string) {
 		// 	}
 		// }
 		var reply JoinReply
-		fmt.Println("try2")
 		ok := srv.Call("Join", args, &reply)
-		fmt.Println("try3")
 		fmt.Println(ok, reply)
 		fmt.Println(srv)
 		if ok && reply.WrongLeader == false && reply.Err == OK {

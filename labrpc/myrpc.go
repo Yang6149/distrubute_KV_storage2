@@ -78,7 +78,6 @@ func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) b
 		}
 		c.client = client
 	}
-
 	fmt.Println("name = = ", c.ClusterName, c.GetIP(), svcMeth)
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {

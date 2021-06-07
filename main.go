@@ -61,109 +61,116 @@ func main() {
 	fmt.Println("isClient", c.IsClient)
 	if c.IsMasterClient {
 
+		//开一个http服务
+		go http.StartServer2()
 		client := shardkv.MakeClerk(clients)
 
 		clerk := shardmaster.MakeClerk(clients)
+		// clerk.EasyJoin(1)
+		// clerk.EasyJoin(2)
+		// clerk.EasyLeave(2)
+		// clerk.EasyJoin(3)
+		// clerk.EasyLeave(1)
 
+		// fmt.Print(clerk.Query(-1))
+
+		// for i := 0; i < 10; i++ {
+		// 	// fmt.Println("put ", i, i)
+		// 	// client.Put(strconv.Itoa(i), strconv.Itoa(i))
+		// 	fmt.Println("Get", client.Get(strconv.Itoa(i)))
+		// 	fmt.Println("finish")
+		// }
 		reader := bufio.NewReader(os.Stdin)
 
 		// 用户端逻辑
-		if true {
 
-			fmt.Println("kvshard client Shell")
-			fmt.Println("---------------------")
-			for {
-				fmt.Print("-> ")
-				text, _ := reader.ReadString('\n')
-				// convert CRLF to LF
-				text = strings.Replace(text, "\n", "", -1)
-				text = strings.Replace(text, "\r", "", -1)
-				commends := strings.Split(text, " ")
-				commend := commends[0]
-				switch commend {
-				case "Get":
-					if len(commends) != 2 {
-						fmt.Println("Get need 1 argument Key")
-						continue
-					}
-					client.Get(commends[1])
-				case "get":
-					if len(commends) != 2 {
-						fmt.Println("Get need 1 argument Key")
-						continue
-					}
-					client.Get(commends[1])
-				case "Put":
-					if len(commends) != 3 {
-						fmt.Println("Put need 2 argument Key")
-						continue
-					}
-					client.Put(commends[1], commends[2])
-				case "put":
-					if len(commends) != 3 {
-						fmt.Println("Put need 2 argument Key")
-						continue
-					}
-					client.Put(commends[1], commends[2])
-				case "Append":
-					if len(commends) != 3 {
-						fmt.Println("Append need 2 argument Key")
-						continue
-					}
-					client.Append(commends[1], commends[2])
-				case "append":
-					if len(commends) != 3 {
-						fmt.Println("Append need 2 argument Key")
-						continue
-					}
-					client.Append(commends[1], commends[2])
-				case "info":
-					if len(commends) != 1 {
-						fmt.Println("info need 1 argument Key")
-						continue
-					}
-					fmt.Println(clerk.EasyQuery())
-				case "join":
-					if len(commends) != 2 {
-						fmt.Println("info need 2 argument Key")
-						continue
-					}
-					int, err := strconv.Atoi(commends[1])
-					if err != nil {
-						fmt.Println("输出请为0-2的数字")
-						continue
-					}
-					clerk.EasyJoin(int)
-				case "leave":
-					if len(commends) != 2 {
-						fmt.Println("info need 2 argument Key")
-						continue
-					}
-					int, err := strconv.Atoi(commends[1])
-					if err != nil {
-						fmt.Println("输出请为0-2的数字")
-						continue
-					}
-					clerk.EasyLeave(int)
-
+		fmt.Println("kvshard client Shell")
+		fmt.Println("---------------------")
+		for {
+			fmt.Print("-> ")
+			text, _ := reader.ReadString('\n')
+			// convert CRLF to LF
+			text = strings.Replace(text, "\n", "", -1)
+			text = strings.Replace(text, "\r", "", -1)
+			commends := strings.Split(text, " ")
+			commend := commends[0]
+			switch commend {
+			case "Get":
+				if len(commends) != 2 {
+					fmt.Println("Get need 1 argument Key")
+					continue
 				}
+				v := client.Get(commends[1])
+				fmt.Println(v)
+			case "get":
+				if len(commends) != 2 {
+					fmt.Println("Get need 1 argument Key")
+					continue
+				}
+				fmt.Println(client.Get(commends[1]))
+			case "Put":
+				if len(commends) != 3 {
+					fmt.Println("Put need 2 argument Key")
+					continue
+				}
+				client.Put(commends[1], commends[2])
+				fmt.Println("OK")
+			case "put":
+				if len(commends) != 3 {
+					fmt.Println("Put need 2 argument Key")
+					continue
+				}
+				client.Put(commends[1], commends[2])
+				fmt.Println("OK")
+			case "Append":
+				if len(commends) != 3 {
+					fmt.Println("Append need 2 argument Key")
+					continue
+				}
+				client.Append(commends[1], commends[2])
+				fmt.Println("OK")
+			case "append":
+				if len(commends) != 3 {
+					fmt.Println("Append need 2 argument Key")
+					continue
+				}
+				client.Append(commends[1], commends[2])
+				fmt.Println("OK")
+			case "info":
+				if len(commends) != 1 {
+					fmt.Println("info need 1 argument Key")
+					continue
+				}
+				fmt.Println(clerk.EasyQuery())
+			case "join":
+				if len(commends) != 2 {
+					fmt.Println("info need 2 argument Key")
+					continue
+				}
+				int, err := strconv.Atoi(commends[1])
+				if err != nil {
+					fmt.Println("输出请为0-2的数字")
+					continue
+				}
+				clerk.EasyJoin(int)
+				fmt.Println("OK")
+			case "leave":
+				if len(commends) != 2 {
+					fmt.Println("info need 2 argument Key")
+					continue
+				}
+				int, err := strconv.Atoi(commends[1])
+				if err != nil {
+					fmt.Println("输出请为0-2的数字")
+					continue
+				}
+				clerk.EasyLeave(int)
+				fmt.Println("OK")
 
 			}
+
 		}
 
-		clerk.EasyJoin(1)
-		clerk.EasyJoin(2)
-		clerk.EasyJoin(3)
-		fmt.Print(clerk.Query(-1))
-
-		for i := 0; i < 10; i++ {
-			client.Put(strconv.Itoa(i), strconv.Itoa(i))
-			if client.Get(strconv.Itoa(i)) != strconv.Itoa(i) {
-				fmt.Println("fail")
-				break
-			}
-			fmt.Println("finish")
-		}
 	} else {
 		if c.IsMaster {
 			//启动服务

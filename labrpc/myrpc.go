@@ -6,7 +6,6 @@ import (
 	"net/rpc"
 	"strconv"
 	"strings"
-	"time"
 )
 
 const (
@@ -74,7 +73,7 @@ func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) b
 		if err != nil {
 			fmt.Println(c, svcMeth)
 			fmt.Println("dialing:", err)
-			time.Sleep(time.Millisecond * 100)
+			// time.Sleep(time.Millisecond * 100)
 			return false
 		}
 		c.client = client

@@ -6,7 +6,6 @@ package shardmaster
 
 import (
 	"crypto/rand"
-	"fmt"
 	"math/big"
 	"time"
 
@@ -71,15 +70,12 @@ func (ck *Clerk) Join(servers map[int][]string) {
 		// try each known server.
 		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply JoinReply
-		fmt.Println("try2")
 		ok := srv.Call("Join", args, &reply)
-		fmt.Println("try3")
-		fmt.Println(ok, reply)
-		fmt.Println(srv)
+		// fmt.Println(ok, reply)
+		// fmt.Println(srv)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return
 		}
-		fmt.Println("try4")
 		time.Sleep(100 * time.Millisecond)
 		ck.leader = (ck.leader + 1) % len(ck.servers.GroupsServ[0])
 	}

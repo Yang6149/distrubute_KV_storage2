@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"distrubute_KV_storage/http"
 	"distrubute_KV_storage/labrpc"
 	"distrubute_KV_storage/raft"
 	"distrubute_KV_storage/shardkv"
@@ -166,9 +167,19 @@ func main() {
 	} else {
 		if c.IsMaster {
 			//启动服务
-			shardmaster.StartServer(clients, c, c.Id, c.Group, per)
+			master := shardmaster.StartServer(clients, c, c.Id, c.Group, per)
+			fmt.Println(master)
+			c := http.Config{}
+			c.IsMaster = true
+			c.Master = master
+			go http.StartServer(&c)
 		} else {
-			shardkv.StartServer(clients, c, c.Id, per, -1, c.Group)
+			server := shardkv.StartServer(clients, c, c.Id, per, -1, c.Group)
+			fmt.Println(server)
+			c := http.Config{}
+			c.IsMaster = false
+			c.Slaver = server
+			go http.StartServer(&c)
 		}
 	}
 

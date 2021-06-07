@@ -81,6 +81,7 @@ func (c *TrueClient) Call(svcMeth string, args interface{}, reply interface{}) b
 
 	err := c.client.Call(c.ClusterName+"."+svcMeth, args, reply)
 	if err != nil {
+		c.client = nil
 		fmt.Printf("错误%v ,me is %s,target is %d\n", err.Error(), c.myIp, c.IP+":"+strconv.Itoa(c.Port))
 		return false
 	}

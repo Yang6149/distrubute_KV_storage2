@@ -51,7 +51,7 @@ func (ck *Clerk) Query(num int) Config {
 		srv := ck.servers.GroupsServ[0][ck.leader]
 		var reply QueryReply
 		ok := srv.Call("Query", args, &reply)
-		fmt.Println(reply)
+		// fmt.Println(reply)
 		if ok && reply.WrongLeader == false && reply.Err == OK {
 			return reply.Config
 		}
@@ -143,4 +143,11 @@ func (ck *Clerk) joinm(gis []int) {
 		m[g] = servernames
 	}
 	ck.Join(m)
+}
+
+func (ck *Clerk) EasyLeave(gi int) {
+	ck.Leave([]int{gi})
+}
+func (ck *Clerk) EasyQuery() Config {
+	return ck.Query(-1)
 }

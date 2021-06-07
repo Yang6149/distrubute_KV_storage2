@@ -47,7 +47,7 @@ func EPrintf(format string, a ...interface{}) (n int, err error) {
 }
 func init() {
 	begin = time.Now().UnixNano()
-	fmt.Println("123")
+	// fmt.Println("123")
 	f, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println("?????????????????")
@@ -301,6 +301,14 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me int, persister *raf
 	go kv.fetchLatestConfig()
 	go kv.detectConfig()
 	go kv.GCDeamon()
+	go func() {
+		for {
+			time.Sleep(time.Second)
+			v1, v2 := kv.rf.GetState()
+			fmt.Printf("raftstate : %v,%v\n", v1, v2)
+		}
+
+	}()
 	return kv
 }
 

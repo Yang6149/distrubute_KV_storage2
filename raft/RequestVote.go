@@ -1,7 +1,5 @@
 package raft
 
-import "fmt"
-
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
@@ -28,7 +26,7 @@ type RequestVoteReply struct {
 // example RequestVote RPC handler.handler、handler、handler
 //
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error {
-	fmt.Printf("me is %d %v,caller is %d, %d 的log是%d， %d的log是%d\n", rf.me, rf.start, args.CandidateId, rf.me, rf.logLen()-1, args.CandidateId, args.LastLogIndex)
+	// fmt.Printf("me is %d %v,caller is %d, %d 的log是%d， %d的log是%d\n", rf.me, rf.start, args.CandidateId, rf.me, rf.logLen()-1, args.CandidateId, args.LastLogIndex)
 	//fmt.Printf("vote %d,response\n", rf.me)
 	// Your code here (2A, 2B).----------------------------------------
 	rf.mu.Lock()
@@ -60,7 +58,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) error
 				DPrintf("%d votefor %d,当前 term %d", rf.me, args.CandidateId, rf.currentTerm)
 				reply.Term = args.Term
 				reply.VoteGranted = true
-				fmt.Printf("%d vote %d,response\n", rf.me, args.CandidateId)
+				// fmt.Printf("%d vote %d,response\n", rf.me, args.CandidateId)
 				return nil
 			}
 			// rf.voteFor = args.CandidateId

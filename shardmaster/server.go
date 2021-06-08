@@ -181,7 +181,7 @@ func (sm *ShardMaster) start(op Op) (bool, Err, Config) { //wrongLeader , Err
 			return true, "", resConfig
 		}
 
-	case <-time.After(500 * time.Millisecond):
+	case <-time.After(1000 * time.Millisecond):
 		DPrintf("%d :start timeout", sm.me)
 		return false, ErrTimeOut, resConfig
 	}
@@ -262,6 +262,7 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me, g int, persister *
 	go func() {
 		for {
 			time.Sleep(time.Second)
+			fmt.Printf("before raft")
 			v1, v2 := sm.Raft().GetState()
 			fmt.Printf("raftstate : %v,%v\n", v1, v2)
 		}

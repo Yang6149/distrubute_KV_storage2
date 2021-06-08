@@ -200,7 +200,7 @@ func (kv *ShardKV) start(op Op) (string, Err) {
 			return "", ErrWrongLeader
 		}
 
-	case <-time.After(500 * time.Millisecond):
+	case <-time.After(1000 * time.Millisecond):
 		return "", ErrTimeOut
 	}
 }
@@ -319,6 +319,7 @@ func StartServer(clients *labrpc.Clients, conf tool.Conf, me int, persister *raf
 	go func() {
 		for {
 			time.Sleep(time.Second)
+			fmt.Printf("before raft")
 			v1, v2 := kv.rf.GetState()
 			fmt.Printf("raftstate : %v,%v\n", v1, v2)
 		}
@@ -551,7 +552,7 @@ func (kv *ShardKV) fetchLatestConfig() {
 			return
 		}
 		select {
-		case <-time.After(50 * time.Millisecond):
+		case <-time.After(300 * time.Millisecond):
 			_, isLeader := kv.rf.GetState()
 			if !isLeader {
 				continue
@@ -625,7 +626,7 @@ func (kv *ShardKV) detectConfig() {
 			return
 		}
 		select {
-		case <-time.After(50 * time.Millisecond):
+		case <-time.After(150 * time.Millisecond):
 			_, isLeader := kv.rf.GetState()
 			if isLeader {
 				kv.mu.Lock()
@@ -696,7 +697,7 @@ func (kv *ShardKV) MigrateReply(args MigrateArgs, reply *MigrateReply) error {
 		kv.DPrintf("%d %d 接受到 来自 %d 的shard %d", kv.gid, kv.me, args.Gid, shard)
 		reply.Err = OK
 		return nil
-	case <-time.After(200 * time.Millisecond):
+	case <-time.After(600 * time.Millisecond):
 		reply.Err = ErrTimeOut
 		kv.DPrintf("%d %d rep-migrate %d 的shard %d,is timeout", kv.gid, kv.me, args.Gid, args.Shard)
 		return nil

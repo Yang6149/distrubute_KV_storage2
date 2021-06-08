@@ -25,7 +25,7 @@ import (
 const leader = 2
 const follower = 0
 const candidate = 1
-const heartbeatConstTime = 50 * time.Millisecond
+const heartbeatConstTime = 100 * time.Millisecond
 const isDan = true
 
 //
@@ -426,7 +426,7 @@ func Make(clients *labrpc.Clients, conf tool.Conf, me int,
 }
 
 func electionConstTime() time.Duration {
-	return time.Duration(150+rand.Intn(300)) * time.Millisecond
+	return time.Duration(300+rand.Intn(600)) * time.Millisecond
 }
 
 func (rf *Raft) apply() {
